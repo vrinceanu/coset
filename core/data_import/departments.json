@@ -1,0 +1,63 @@
+[
+ {
+    "name": "Aerospace and Mechanical Engineering",
+    "abbreviation": "ASME",
+    "active": true
+ },
+ {
+    "name": "Biology",
+    "abbreviation": "BIOL",
+    "active": true
+ },
+ {
+    "name": "Chemical Engineering and Environmental Toxicology",
+    "abbreviation": "CEET",
+    "active": true
+ },
+ {
+    "name": "Civil Engineering and Transportation Studies",
+    "abbreviation": "CETS",
+    "active": true
+  },
+  {
+    "name": "Chemistry",
+    "abbreviation": "CHEM",
+    "active": true
+  },
+  {
+    "name": "Computer Science",
+    "abbreviation": "CS",
+    "active": false
+  },
+  {
+    "name": "Environmental and Interdisciplinary Sciences",
+    "abbreviation": "EIS",
+    "active": false
+  },
+  {
+    "name": "Electrical Engineering and Computer Science",
+    "abbreviation": "EECS",
+    "active": true
+  },
+  {
+    "name": "Engineering",
+    "abbreviation": "ENG",
+    "active": false
+  },
+  {
+    "name": "Mathematical Sciences",
+    "abbreviation": "MATH",
+    "active": true
+  },
+  {
+    "name": "Physics",
+    "abbreviation": "PHYS",
+    "active": true
+  },
+  {
+    "name": "Transportation Studies",
+    "abbreviation": "TS",
+    "active": false
+  }
+]
+ 

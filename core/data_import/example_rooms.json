@@ -1,0 +1,44 @@
+[
+  {
+    "building": "Science Hall",
+    "room_number": "100",
+    "purpose": "office",
+    "department": "Computer Science",
+    "notes": "Department main office"
+  },
+  {
+    "building": "Science Hall",
+    "room_number": "101",
+    "purpose": "conference",
+    "department": "Computer Science",
+    "notes": "Faculty conference room, seats 12"
+  },
+  {
+    "building": "Science Hall",
+    "room_number": "205",
+    "purpose": "office",
+    "department": "Computer Science",
+    "notes": ""
+  },
+  {
+    "building": "Science Hall",
+    "room_number": "120",
+    "purpose": "lab",
+    "department": "Computer Science",
+    "notes": "Undergraduate teaching lab, 30 workstations"
+  },
+  {
+    "building": "Engineering Building",
+    "room_number": "200",
+    "purpose": "office",
+    "department": "Civil Engineering",
+    "notes": ""
+  },
+  {
+    "building": "Engineering Building",
+    "room_number": "305",
+    "purpose": "lab",
+    "department": "Electrical Engineering",
+    "notes": "Circuits and electronics lab"
+  }
+]

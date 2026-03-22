@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ title|default:"COSET DataWarehouse" }}{% endblock %} – COSET DW</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #1a3a5c;
+      --accent:  #c8102e;
+      --light:   #f4f6f9;
+      --border:  #d0d7e3;
+      --text:    #1d2433;
+      --muted:   #64748b;
+      --success: #166534;
+      --warning: #92400e;
+      --header-bg: maroon;
+    }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    header {
+      background: maroon;
+      color: #fff;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 54px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.25);
+      flex-shrink: 0;
+    }
+    header .brand {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-decoration: none;
+      color: #fff;
+    }
+    header .brand span { color: #ffce00; }
+    header nav { display: flex; gap: .25rem; }
+    header nav a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+      padding: .35rem .75rem;
+      border-radius: 4px;
+      font-size: .85rem;
+      transition: background .15s;
+    }
+    header nav a:hover, header nav a.active { background: rgba(255,255,255,.15); color: #fff; }
+    header .user-info { font-size: .8rem; color: rgba(255,255,255,.7); display: flex; align-items: center; gap: .75rem; }
+    header .user-info a { color: rgba(255,255,255,.7); }
+
+    /* ── Layout ── */
+    .page { display: flex; flex: 1; }
+    main { flex: 1; padding: 1.5rem 2rem; max-width: 1400px; width: 100%; }
+
+    /* ── Page heading ── */
+    .page-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .card-title {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: .5rem;
+    }
+
+    /* ── Stat grid ── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .stat-card .num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+    }
+    .stat-card .label {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: .3rem;
+    }
+
+    /* ── Tables ── */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: .875rem; }
+    th {
+      background: var(--primary);
+      color: #fff;
+      padding: .55rem .75rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    td { padding: .5rem .75rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    tr:hover td { background: #f8fafd; }
+    .badge {
+      display: inline-block;
+      padding: .15rem .5rem;
+      border-radius: 3px;
+      font-size: .75rem;
+      font-weight: 600;
+    }
+    .badge-green  { background: #d1fae5; color: var(--success); }
+    .badge-red    { background: #fee2e2; color: #b91c1c; }
+    .badge-blue   { background: #dbeafe; color: #1e40af; }
+    .badge-yellow { background: #fef9c3; color: var(--warning); }
+    .badge-gray   { background: #f1f5f9; color: var(--muted); }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .75rem 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+      align-items: center;
+    }
+    .filter-bar input, .filter-bar select {
+      padding: .35rem .6rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: .85rem;
+    }
+    .filter-bar button, .btn {
+      padding: .35rem .85rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: .85rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-sm { padding: .2rem .55rem; font-size: .78rem; }
+    .btn-accent { background: var(--accent); }
+    .btn-gray { background: var(--muted); }
+
+    /* ── Messages ── */
+    .messages { list-style: none; margin-bottom: 1rem; }
+    .messages li {
+      padding: .65rem 1rem;
+      border-radius: 4px;
+      margin-bottom: .4rem;
+      font-size: .875rem;
+    }
+    .messages .success { background: #d1fae5; color: var(--success); }
+    .messages .error   { background: #fee2e2; color: #b91c1c; }
+    .messages .warning { background: #fef9c3; color: var(--warning); }
+    .messages .info    { background: #dbeafe; color: #1e40af; }
+
+    /* ── Form ── */
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; font-weight: 600; margin-bottom: .35rem; font-size: .85rem; }
+    textarea, select.form-control, input.form-control {
+      width: 100%;
+      padding: .45rem .65rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: .875rem;
+      font-family: inherit;
+    }
+    textarea { font-family: 'Courier New', monospace; }
+
+    footer {
+      background: maroon;
+      color: rgba(255,255,255,.5);
+      text-align: center;
+      padding: .6rem;
+      font-size: .75rem;
+      flex-shrink: 0;
+    }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<header>
+  <a class="brand" href="/dashboard/">
+    <span>COSET</span> DataWarehouse
+  </a>
+  <nav>
+    <a href="/manage/dashboard/" {% if request.path == '/dashboard/' %}class="active"{% endif %}>Dashboard</a>
+    <a href="/manage/people/"    {% if '/people/' in request.path %}class="active"{% endif %}>People</a>
+    <a href="/manage/units/"     {% if '/units/' in request.path %}class="active"{% endif %}>Units</a>
+    <a href="/manage/courses/"   {% if '/courses/' in request.path %}class="active"{% endif %}>Courses</a>
+    <a href="/manage/programs/"  {% if '/programs/' in request.path %}class="active"{% endif %}>Programs</a>
+    <a href="/manage/grants/"    {% if '/grants/' in request.path %}class="active"{% endif %}>Grants</a>
+    <a href="/manage/research/"  {% if '/research/' in request.path %}class="active"{% endif %}>Research</a>
+    <a href="/manage/import/"    {% if '/import/' in request.path %}class="active"{% endif %}>Import</a>
+    <a href="/admin/">Admin</a>
+  </nav>
+  <div class="user-info">
+    {{ request.user.get_full_name|default:request.user.username }}
+    &nbsp;|&nbsp;
+    <a href="/admin/logout/?next=/admin/login/">Logout</a>
+  </div>
+</header>
+
+<div class="page">
+  <main>
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+</div>
+
+<footer>
+  COSET DataWarehouse &nbsp;·&nbsp; College of Science, Engineering and Technology &nbsp;·&nbsp; Intranet
+</footer>
+</body>
+</html>

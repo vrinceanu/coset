@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">
+  People
+  <a href="/admin/core/person/add/" class="btn btn-sm">+ Add Person</a>
+</div>
+
+<form class="filter-bar" method="get">
+  <input type="text" name="q" placeholder="Search name or email…" value="{{ filters.q }}">
+  <select name="classification">
+    <option value="">All Classifications</option>
+    <option value="faculty" {% if filters.classification == 'faculty' %}selected{% endif %}>Faculty</option>
+    <option value="staff"   {% if filters.classification == 'staff' %}selected{% endif %}>Staff</option>
+  </select>
+  <select name="department">
+    <option value="">All Departments</option>
+    {% for d in departments %}
+      <option value="{{ d.abbreviation }}" {% if filters.department == d.abbreviation %}selected{% endif %}>{{ d.name }}</option>
+    {% endfor %}
+  </select>
+  <select name="active">
+    <option value="">All Status</option>
+    <option value="1" {% if filters.active == '1' %}selected{% endif %}>Active</option>
+    <option value="0" {% if filters.active == '0' %}selected{% endif %}>Inactive</option>
+  </select>
+  <button type="submit">Filter</button>
+  <a href="/people/" class="btn btn-gray">Reset</a>
+</form>
+
+<div class="card" style="padding:0;">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Classification</th>
+          <th>Rank</th>
+          <th>Department</th>
+          <th>Email</th>
+          <th>Room</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in people %}
+        <tr>
+          <td><strong>{{ p.last_first }}</strong>{% if p.admin_role %}<br><small style="color:var(--muted)">{{ p.admin_role }}</small>{% endif %}</td>
+          <td>
+            {% if p.classification == 'faculty' %}
+              <span class="badge badge-blue">Faculty</span>
+            {% else %}
+              <span class="badge badge-gray">Staff</span>
+            {% endif %}
+          </td>
+          <td>{{ p.rank|default:"—" }}</td>
+          <td>{{ p.department|default:"—" }}</td>
+          <td>{% if p.email %}<a href="mailto:{{ p.email }}">{{ p.email }}</a>{% else %}—{% endif %}</td>
+          <td>{{ p.room|default:"—" }}</td>
+          <td>
+            {% if p.active %}
+              <span class="badge badge-green">Active</span>
+            {% else %}
+              <span class="badge badge-red">Inactive</span>
+            {% endif %}
+          </td>
+          <td><a href="/admin/core/person/{{ p.id }}/change/" class="btn btn-sm">Edit</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted);">No people found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<p style="color:var(--muted);font-size:.8rem;">{{ people|length }} record(s)</p>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">
+  Units
+  <a href="/admin/core/unit/add/" class="btn btn-sm">+ Add Unit</a>
+</div>
+
+<form class="filter-bar" method="get">
+  <select name="type">
+    <option value="">All Types</option>
+    <option value="academic"       {% if filters.type == 'academic' %}selected{% endif %}>Academic</option>
+    <option value="administrative" {% if filters.type == 'administrative' %}selected{% endif %}>Administrative</option>
+    <option value="research"       {% if filters.type == 'research' %}selected{% endif %}>Research</option>
+  </select>
+  <button type="submit">Filter</button>
+  <a href="/units/" class="btn btn-gray">Reset</a>
+</form>
+
+<div class="card" style="padding:0;">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Chair / Head</th>
+          <th>Interim</th>
+          <th>Admin Contact</th>
+          <th>Phone</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in units %}
+        <tr>
+          <td>
+            <strong>{{ u.name }}</strong>
+            {% if u.url %}<br><a href="{{ u.url }}" target="_blank" style="font-size:.78rem;">{{ u.url }}</a>{% endif %}
+          </td>
+          <td>
+            {% if u.unit_type == 'academic' %}
+              <span class="badge badge-blue">Academic</span>
+            {% elif u.unit_type == 'research' %}
+              <span class="badge badge-green">Research</span>
+            {% else %}
+              <span class="badge badge-yellow">Admin</span>
+            {% endif %}
+          </td>
+          <td>{{ u.principal|default:"—" }}</td>
+          <td>{% if u.interim %}<span class="badge badge-yellow">Interim</span>{% else %}—{% endif %}</td>
+          <td>{{ u.admin|default:"—" }}</td>
+          <td>{{ u.admin_phone|default:"—" }}</td>
+          <td><a href="/admin/core/unit/{{ u.id }}/change/" class="btn btn-sm">Edit</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--muted);">No units found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<p style="color:var(--muted);font-size:.8rem;">{{ units|length }} record(s)</p>
+{% endblock %}

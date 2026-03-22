@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">Import JSON Data</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;">
+  <div>
+    <div class="card">
+      <div class="card-title">Paste & Import</div>
+      <form method="post" action="/import/run/">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="import_type">Data Type</label>
+          <select name="import_type" id="import_type" class="form-control" required>
+            {% for t in import_types %}
+              <option value="{{ t }}">{{ t|capfirst }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="json_data">JSON Data</label>
+          <textarea name="json_data" id="json_data" rows="18"
+            class="form-control"
+            placeholder='[&#10;  {&#10;    "name": "...",&#10;    ...&#10;  }&#10;]'></textarea>
+        </div>
+        <button type="submit" class="btn btn-accent">Run Import</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-title">CLI Import Command</div>
+      <pre style="background:#1e293b;color:#e2e8f0;padding:1rem;border-radius:4px;font-size:.8rem;overflow-x:auto;">python manage.py import_json \
+    --type person \
+    --file /path/to/persons.json
+
+# Dry-run (validate without saving):
+python manage.py import_json \
+    --type grant \
+    --file /path/to/grants.json \
+    --dry-run</pre>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <div class="card-title">JSON Format Examples</div>
+      <p style="margin-bottom:.75rem;font-size:.85rem;color:var(--muted);">
+        All endpoints accept a JSON array. Each type is matched to database records
+        using a unique key (name, code, title, etc.) – existing records are updated,
+        new records are created.
+      </p>
+
+      <details style="margin-bottom:.75rem;">
+        <summary style="cursor:pointer;font-weight:600;color:var(--primary);">Room</summary>
+        <pre style="background:#f8fafd;border:1px solid var(--border);padding:.75rem;border-radius:4px;font-size:.78rem;overflow-x:auto;margin-top:.5rem;">[
+  {
+    "building": "Science Hall",
+    "room_number": "101",
+    "purpose": "office",
+    "department": "Computer Science",
+    "notes": "Corner office, south wing"
+  }
+]</pre>
+      </details>
+
+      <details style="margin-bottom:.75rem;">
+        <summary style="cursor:pointer;font-weight:600;color:var(--primary);">Person</summary>
+        <pre style="background:#f8fafd;border:1px solid var(--border);padding:.75rem;border-radius:4px;font-size:.78rem;overflow-x:auto;margin-top:.5rem;">[
+  {
+    "last_first": "Smith, John A.",
+    "name": "John A. Smith",
+    "active": true,
+    "classification": "faculty",
+    "rank": "professor",
+    "department": "Computer Science",
+    "admin_role": "Department Chair",
+    "room_building": "Science Hall",
+    "room_number": "205",
+    "email": "jsmith@university.edu",
+    "phone": "555-1234",
+    "cv_link": "https://example.edu/cv/jsmith",
+    "photo_link": "https://example.edu/photos/jsmith.jpg",
+    "biography": "Dr. Smith joined the faculty in 2010..."
+  }
+]</pre>
+      </details>
+
+      <details style="margin-bottom:.75rem;">
+        <summary style="cursor:pointer;font-weight:600;color:var(--primary);">Unit</summary>
+        <pre style="background:#f8fafd;border:1px solid var(--border);padding:.75rem;border-radius:4px;font-size:.78rem;overflow-x:auto;margin-top:.5rem;">[
+  {
+    "name": "Department of Computer Science",
+    "slug": "computer-science",
+    "description": "Offering BS and MS degrees...",
+    "url": "https://cs.university.edu",
+    "unit_type": "academic",
+    "room_building": "Science Hall",
+    "room_number": "100",
+    "principal_last_first": "Smith, John A.",
+    "interim": false,
+    "principal_email": "jsmith@university.edu",
+    "head_phone": "555-1000",
+    "admin_last_first": "Jones, Mary",
+    "admin_email": "mjones@university.edu",
+    "admin_phone": "555-1001",
+    "admin_fax": "555-1002",
+    "logo": "https://example.edu/logos/cs.png",
+    "photo": ""
+  }
+]</pre>
+      </details>
+
+      <details style="margin-bottom:.75rem;">
+        <summary style="cursor:pointer;font-weight:600;color:var(--primary);">Course</summary>
+        <pre style="background:#f8fafd;border:1px solid var(--border);padding:.75rem;border-radius:4px;font-size:.78rem;overflow-x:auto;margin-top:.5rem;">[
+  {
+    "code": "CS 1301",
+    "name": "Introduction to Computer Science",
+    "description": "Fundamental concepts of programming...",
+    "department": "Computer Science",
+    "lecture_credits": 3,
+    "lab_credits": 1
+  }
+]</pre>
+      </details>
+
+      <details style="margin-bottom:.75rem;">
+        <summary style="cursor:pointer;font-weight:600;color:var(--primary);">Program</summary>
+        <pre style="background:#f8fafd;border:1px solid var(--border);padding:.75rem;border-radius:4px;font-size:.78rem;overflow-x:auto;margin-top:.5rem;">[
+  {
+    "name": "Computer Science",
+    "degree_conferred": "BS",
+    "focus": "major",
+    "department": "Computer Science",
+    "active": true,
+    "level": "undergraduate",
+    "description": "The BS in Computer Science prepares...",
+    "admission_requirements": "Minimum 2.5 GPA, SAT Math...",
+    "credit_hours": 120,
+    "major_requirements": "CS 1301, CS 1302, CS 2301...",
+    "other_requirements": "2 semesters of calculus...",
+    "electives": "Choose 9 hours from CS 4xxx...",
+    "degree_plan": "Year 1: CS 1301, MATH 1431..."
+  }
+]</pre>
+      </details>
+
+      <details style="margin-bottom:.75rem;">
+        <summary style="cursor:pointer;font-weight:600;color:var(--primary);">Grant</summary>
+        <pre style="background:#f8fafd;border:1px solid var(--border);padding:.75rem;border-radius:4px;font-size:.78rem;overflow-x:auto;margin-top:.5rem;">[
+  {
+    "title": "AI Research Initiative",
+    "department": "Computer Science",
+    "granting_agency": "National Science Foundation",
+    "program": "CISE – Small Research",
+    "principal_investigator": "Smith, John A.",
+    "dollar_amount": 500000.00,
+    "start_date": "2023-09-01",
+    "end_date": "2026-08-31",
+    "notes": "Collaborative grant with UT Austin"
+  }
+]</pre>
+      </details>
+
+      <details>
+        <summary style="cursor:pointer;font-weight:600;color:var(--primary);">Research Group</summary>
+        <pre style="background:#f8fafd;border:1px solid var(--border);padding:.75rem;border-radius:4px;font-size:.78rem;overflow-x:auto;margin-top:.5rem;">[
+  {
+    "name": "Autonomous Systems Laboratory",
+    "principal_investigator": "Smith, John A.",
+    "co_investigators": [
+      "Jones, Mary B.",
+      "Lee, Robert C."
+    ],
+    "student_researchers": [],
+    "publications": "Smith, J.A. et al. (2024). Deep...",
+    "grants": ["AI Research Initiative"],
+    "capabilities": "Multi-agent coordination, sim...",
+    "equipment": "NVIDIA DGX A100, ROS 2 robot fleet",
+    "personnel": "2 postdocs, 4 PhD students",
+    "safety_requirements": "Robot safety training required"
+  }
+]</pre>
+      </details>
+    </div>
+  </div>
+</div>
+{% endblock %}

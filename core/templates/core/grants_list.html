@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">
+  Grants
+  <a href="/admin/core/grant/add/" class="btn btn-sm">+ Add Grant</a>
+</div>
+
+<form class="filter-bar" method="get">
+  <input type="text" name="q" placeholder="Title, agency, or PI…" value="{{ filters.q }}">
+  <select name="department">
+    <option value="">All Departments</option>
+    {% for d in departments %}
+      <option value="{{ d.id }}" {% if filters.department == d.id|stringformat:"s" %}selected{% endif %}>{{ d.name }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Filter</button>
+  <a href="/grants/" class="btn btn-gray">Reset</a>
+</form>
+
+<div class="card" style="background:#f0fdf4;border-color:#bbf7d0;margin-bottom:1rem;">
+  <strong>Total Funding (filtered): ${{ total|floatformat:2 }}</strong>
+</div>
+
+<div class="card" style="padding:0;">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Agency</th>
+          <th>Principal Investigator</th>
+          <th>Department</th>
+          <th>Amount</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for g in grants %}
+        <tr>
+          <td><strong>{{ g.title|truncatechars:50 }}</strong>{% if g.program %}<br><small style="color:var(--muted)">{{ g.program }}</small>{% endif %}</td>
+          <td>{{ g.granting_agency }}</td>
+          <td>{{ g.principal_investigator|default:"—" }}</td>
+          <td>{{ g.department|default:"—" }}</td>
+          <td>{% if g.dollar_amount %}<strong>${{ g.dollar_amount|floatformat:2 }}</strong>{% else %}—{% endif %}</td>
+          <td>{{ g.start_date|default:"—" }}</td>
+          <td>{{ g.end_date|default:"—" }}</td>
+          <td><a href="/admin/core/grant/{{ g.id }}/change/" class="btn btn-sm">Edit</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--muted);">No grants found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<p style="color:var(--muted);font-size:.8rem;">{{ grants|length }} record(s)</p>
+{% endblock %}

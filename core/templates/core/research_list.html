@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-title">
+  Research Groups
+  <a href="/admin/core/research/add/" class="btn btn-sm">+ Add Research Group</a>
+</div>
+
+<div class="card" style="padding:0;">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Principal Investigator</th>
+          <th>Co-Investigators</th>
+          <th>Grants</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in research_groups %}
+        <tr>
+          <td><strong>{{ r.name }}</strong></td>
+          <td>{{ r.principal_investigator|default:"—" }}</td>
+          <td>
+            {% for co in r.co_investigators.all %}
+              {{ co.last_first }}{% if not forloop.last %}, {% endif %}
+            {% empty %}
+              —
+            {% endfor %}
+          </td>
+          <td>{{ r.grants.count }}</td>
+          <td><a href="/admin/core/research/{{ r.id }}/change/" class="btn btn-sm">Edit</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--muted);">No research groups found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<p style="color:var(--muted);font-size:.8rem;">{{ research_groups|length }} record(s)</p>
+{% endblock %}
