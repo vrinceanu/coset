@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+{% load person_tags %}
+
+{% block content %}
+<!-- Hero Section -->
+    <section class="relative h-[40vh] flex items-center justify-center overflow-hidden">
+ <!--     <img src="{% static 'img/coset_banner.jpg' %}" alt="COSET" class="absolute inset-0 w-full h-full object-cover"> -->
+        {% image page.hero_image width-3000 class="absolute inset-0 w-full h-full object-cover" alt=page.hero_image.title %}
+        <div class="absolute inset-0  bg-black/35"></div>
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-20 " style = "text-shadow: -4px -4px 4px rgba(0, 0, 0, 0.5);-webkit-text-stroke-width: thin; -webkit-text-stroke-color: gray; paint-order: stroke fill;">
+                {{ page.hero_title }}
+            </h1>
+            <a href="/engineering-initiative">
+            <button class="bg-white/80 transition transform hover:scale-105 px-6 py-4 rounded-lg shadow-lg"> 
+            <div class="inline-block text-3xl font-bold bg-linear-to-r from-indigo-500 to-pink-600 bg-clip-text text-transparent">
+                {{ page.hero_cta_text }}
+            </div>
+            </button>
+            </a>
+        </div>
+    </section>
+
+<!-- News and Events Section -->
+    <section class="p-2">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-coset-gray-dark my-12">News & Events</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                    <div class="h-48 bg-gradient-to-br from-maroon to-maroon-light"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-maroon font-semibold mb-2">January 8, 2026</div>
+                        <h3 class="font-bold text-xl mb-3">Groundbreaking Research in Quantum Computing</h3>
+                        <p class="text-coset-gray mb-4">COSET faculty publish breakthrough findings in quantum error correction, advancing the field significantly.</p>
+                        <a href="#" class="text-maroon font-semibold hover:underline">Read More →</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                    <div class="h-48 bg-gradient-to-br from-deep-blue to-deep-blue-light"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-maroon font-semibold mb-2">January 15, 2026</div>
+                        <h3 class="font-bold text-xl mb-3">Annual STEM Career Fair</h3>
+                        <p class="text-coset-gray mb-4">Connect with top employers from Fortune 500 companies. Register now for exclusive networking opportunities.</p>
+                        <a href="#" class="text-maroon font-semibold hover:underline">Register →</a>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                    <div class="h-48 bg-gradient-to-br from-green-900 to-green-700"></div>
+                    <div class="p-6">
+                        <div class="text-sm text-maroon font-semibold mb-2">January 20, 2026</div>
+                        <h3 class="font-bold text-xl mb-3">Student Innovation Showcase</h3>
+                        <p class="text-coset-gray mb-4">See the latest student projects in robotics, AI, and sustainable engineering at our annual showcase.</p>
+                        <a href="#" class="text-maroon font-semibold hover:underline">Learn More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Testimonials Section -->
+    <section class="py-16 bg-coset-gray1">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center text-coset-gray-dark mb-12">What Our Students Say</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-coset-gray2 p-8 rounded-lg shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                    <div class="text-yellow-500 mb-4">★★★★★</div>
+                    <p class="text-coset-gray mb-4">"The research opportunities at COSET have been transformative. I've worked on cutting-edge AI projects that will shape my career."</p>
+                    <div class="font-semibold text-maroon">Sarah Johnson</div>
+                    <div class="text-sm text-coset-gray-dark">Computer Science, Class of 2024</div>
+                </div>
+                <div class="bg-coset-gray2 p-8 rounded-lg shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                    <div class="text-yellow-500 mb-4">★★★★★</div>
+                    <p class="text-coset-gray mb-4">"The faculty mentorship and hands-on engineering labs prepared me perfectly for my career at NASA."</p>
+                    <div class="font-semibold text-maroon">Michael Chen</div>
+                    <div class="text-sm text-coset-gray-dark">Aerospace Engineering, Class of 2023</div>
+                </div>
+                <div class="bg-coset-gray2 p-8 rounded-lg shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                    <div class="text-yellow-500 mb-4">★★★★★</div>
+                    <p class="text-coset-gray mb-4">"COSET's commitment to diversity and excellence created an environment where I could thrive both academically and personally."</p>
+                    <div class="font-semibold text-maroon">Aisha Patel</div>
+                    <div class="text-sm text-coset-gray-dark">Biology, Class of 2025</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

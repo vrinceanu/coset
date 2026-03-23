@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags wagtailroutablepage_tags %}
+{% load person_tags %}
+{% load dictionary_extras %}
+
+
+{% block content %}
+<div class="max-w-360 p-20">
+<h1 class="pb-10">Faculty and Staff Directory</h1>
+
+<div class="w-full py-4">
+<ul class="flex flex-wrap gap-3"> 
+{% for d in departments %}
+<li><a href="#{{d.slug}}"
+        class="flex items-center gap-2 px-4 py-2 text-white bg-maroon border border-gray-300 rounded-full hover:bg-gray-50 hover:text-stone-900 hover:border-blue-500 transition">
+        {{d.name}}
+</a></li>
+{% endfor %}
+</ul></div> 
+
+<hr class="border-stone-600 my-6">
+
+{% for d in departments %}
+<h2 class="py-6"id={{d.slug}}>Department of {{d.name}}</h2>
+    {% with is_interim=interim|get_item:d.slug %}
+        <h3 class="p-4">{% if is_interim %}Interim{% endif %} Chair</h3>
+    {% endwith %}
+    {% with this_chair=chair|get_item:d.slug %}
+    {% person_card this_chair %}
+    <h3 class="p-4"> Faculty </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 place-content-center">
+        {% for person in people %}
+            {% if person.department == d.abbreviation and this_chair != person.slug and person.classification == 'faculty' %}
+                {% person_card person.slug %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endwith %}
+    <h3 class="p-4"> Staff </h3>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {% for person in people %}
+            {% if person.department == d.abbreviation and person.classification == 'staff' %}
+                {% person_card person.slug %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    
+    <div  class="w-full text-center p-4"> <a href="#top" class="text-sm font-medium text-maroon hover:text-orange-700 transition-colors">
+    <button class="flex items-center gap-2 px-4 py-2 bg-white border rounded-lg hover:bg-gray-50">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M5 12l7-7 7 7"/> </svg>
+    Back to Top
+    </button></a></div>
+
+
+    <hr class="border-stone-600 my-2">
+{% endfor %}
+</div>
+{% endblock %}

@@ -18,6 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
+from search import views as search_views
 
 admin.site.site_header = 'COSET Data Warehouse'
 admin.site.site_title = 'COSET DW Admin'
@@ -25,7 +29,11 @@ admin.site.index_title = 'Data Management'
 admin.site.site_url = '/manage/'
 
 urlpatterns = [
+    path('cms/', include(wagtailadmin_urls)),
+    path('documents/', include(wagtaildocs_urls)),
+    path("search/", search_views.search, name="search"),   
     path('admin/', admin.site.urls),
     path('manage/', include('core.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
+    path('', include(wagtail_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-maroon: #791630;
+  --color-deep-blue: #0e5eb6;
+  --color-coset-gray1: #f5f5f5;
+  --color-coset-gray2: #d6d6d6;
+  --color-coset-gray3: #616161;
+  --font-family-sans: 'Inter', sans-serif;
+}
+
+text-stroke {
+  -webkit-text-stroke-width: 4px;
+  -webkit-text-stroke-color: maroon;
+  color: white; /* sets the fill color of the text */
+}
+
+@layer base {
+  h1 { @apply text-4xl font-bold text-stone-800 tracking-tight; }
+  h2 { @apply text-3xl font-bold text-stone-800 tracking-tight; }
+  h3 { @apply text-2xl font-semibold text-stone-700; }
+  h4 { @apply text-xl font-semibold text-stone-700; }
+  h5 { @apply text-lg font-medium text-stone-600; }
+  h6 { @apply text-base font-medium text-stone-600; }
+}
+
