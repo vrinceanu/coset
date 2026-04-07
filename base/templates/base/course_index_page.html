@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    <div class="intro">{{ page.intro|linebreaks }}</div>
+
+    <form action="{% pageurl page %}" method="get" class="search-form">
+        <input 
+            type="text" 
+            name="query" 
+            placeholder="Search by name or code..." 
+            value="{{ search_query|default:'' }}"
+        >
+        <button type="submit">Search</button>
+        {% if search_query %}
+            <a href="{% pageurl page %}">Clear</a>
+        {% endif %}
+    </form>
+
+    <hr>
+
+    <div class="course-list">
+        {% if search_query %}
+            <p>Showing results for: <strong>{{ search_query }}</strong></p>
+        {% endif %}
+
+        {% for course in courses %}
+            <div class="course-card">
+                <h3>{{ course.code }}: {{ course.name }}</h3>
+                </div>
+        {% empty %}
+            <p>No courses match your search criteria.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

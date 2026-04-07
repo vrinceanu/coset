@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+    <h1>{{ person.name }}</h1>
+    
+    {% if person.photo %}
+        <img src="/media/{{ person.photo }}" alt="{{ person.name }}" style="width: 200px;height: 200px;">
+    {% endif %}
+
+    {% if person.rank %}
+        <p><strong>Rank:</strong> {{ person.rank }}</p>
+    {% endif %}
+    
+    {% if person.department %}
+        <p><strong>Department:</strong> {{ person.department.name }}</p>
+    {% endif %}
+
+    person.slug: {{ person.slug }}
+
+    <div>{{ person.biography | safe}}</div>
+
+  {% endblock %}

@@ -1,0 +1,50 @@
+[
+  {
+    "code": "CS 1301",
+    "name": "Introduction to Computer Science",
+    "description": "Fundamental concepts of computation, problem solving, and programming using Python. Topics include data types, control structures, functions, and basic data structures.",
+    "department": "Computer Science",
+    "lecture_credits": 3,
+    "lab_credits": 1
+  },
+  {
+    "code": "CS 1302",
+    "name": "Data Structures and Algorithms",
+    "description": "Study of fundamental data structures (lists, stacks, queues, trees, graphs) and algorithms with emphasis on time and space complexity.",
+    "department": "Computer Science",
+    "lecture_credits": 3,
+    "lab_credits": 0
+  },
+  {
+    "code": "CS 3310",
+    "name": "Operating Systems",
+    "description": "Principles and design of operating systems including process management, memory management, file systems, and I/O.",
+    "department": "Computer Science",
+    "lecture_credits": 3,
+    "lab_credits": 0
+  },
+  {
+    "code": "CS 4410",
+    "name": "Machine Learning",
+    "description": "Introduction to machine learning techniques including supervised, unsupervised, and reinforcement learning. Practical implementation using scikit-learn and PyTorch.",
+    "department": "Computer Science",
+    "lecture_credits": 3,
+    "lab_credits": 1
+  },
+  {
+    "code": "MATH 1431",
+    "name": "Calculus I",
+    "description": "Limits, continuity, differentiation of algebraic and transcendental functions, applications of differentiation, and introduction to integration.",
+    "department": "Mathematics",
+    "lecture_credits": 4,
+    "lab_credits": 0
+  },
+  {
+    "code": "CE 2200",
+    "name": "Statics",
+    "description": "Equilibrium of particles and rigid bodies, analysis of trusses, frames, and machines, distributed forces, friction, and moments of inertia.",
+    "department": "Civil Engineering",
+    "lecture_credits": 3,
+    "lab_credits": 0
+  }
+]

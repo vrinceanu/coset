@@ -1,0 +1,14 @@
+{% load wagtailcore_tags %}
+
+  <nav aria-label="Breadcrumb" class="bg-white px-2">
+    <ol class="flex items-center gap-2 list-none m-0 p-0">
+        {% for ancestor in ancestors %}
+            {% if forloop.last %}
+                <li aria-current="page" class="flex items-center gap-2 text-sm text-stone-600">{{ ancestor }}</li>
+            {% else %}
+                <li class="flex items-center gap-2 text-sm text-stone-400"><a href="{% pageurl ancestor %}" class="text-maroon hover:underline">{% if forloop.first %}Home{% else %}{{ ancestor }}{% endif %}</a>
+            {% include "includes/chevron-icon.html" with class="w-2 h-13" %}</li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+  </nav>

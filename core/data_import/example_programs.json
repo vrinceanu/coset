@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Computer Science",
+    "degree_conferred": "BS",
+    "focus": "major",
+    "department": "Computer Science",
+    "active": true,
+    "level": "undergraduate",
+    "description": "The Bachelor of Science in Computer Science prepares students for careers in software development, systems design, research, and graduate study. The curriculum covers programming, algorithms, systems, and emerging technologies including AI and cybersecurity.",
+    "admission_requirements": "Minimum 2.5 university GPA; completion of MATH 1431 (Calculus I) with grade of C or better.",
+    "credit_hours": 120,
+    "major_requirements": "CS 1301, CS 1302, CS 2200 (Computer Organization), CS 3310 (Operating Systems), CS 3320 (Database Systems), CS 4401 (Software Engineering), CS 4499 (Senior Capstone). MATH 1431, MATH 1432, MATH 2311 (Probability & Statistics). Total: 42 hours.",
+    "other_requirements": "University Core Curriculum (42 hours). General electives to reach 120 total credit hours.",
+    "electives": "Choose 12 hours from CS 4xxx level courses including: CS 4410 (Machine Learning), CS 4420 (Cybersecurity), CS 4430 (Cloud Computing), CS 4440 (Computer Vision), CS 4450 (Natural Language Processing).",
+    "degree_plan": "Year 1: CS 1301, MATH 1431 (Fall); CS 1302, MATH 1432 (Spring). Year 2: CS 2200, MATH 2311 (Fall); CS 2300, CS elective (Spring). Year 3: CS 3310, CS 3320 (Fall); CS 4401 (Spring). Year 4: Electives (Fall); CS 4499 Capstone (Spring)."
+  },
+  {
+    "name": "Computer Science",
+    "degree_conferred": "MS",
+    "focus": "major",
+    "department": "Computer Science",
+    "active": true,
+    "level": "graduate",
+    "description": "The Master of Science in Computer Science provides advanced study in computing with options for thesis or non-thesis tracks. Students may specialize in AI/ML, cybersecurity, systems, or data science.",
+    "admission_requirements": "Bachelor's degree in CS or related field. Minimum 3.0 GPA. GRE scores (recommended). Statement of purpose and two letters of recommendation.",
+    "credit_hours": 36,
+    "major_requirements": "CS 6301 (Advanced Algorithms), CS 6310 (Graduate Operating Systems), CS 6401 (Research Methods in CS). Thesis track: 6 thesis hours. Non-thesis: 3 additional coursework hours.",
+    "other_requirements": "Minimum 3.0 GPA maintained throughout program. Thesis defense or comprehensive exam required.",
+    "electives": "Choose 18 hours from graduate CS electives (CS 6xxx or higher).",
+    "degree_plan": "Semester 1: CS 6301, CS 6310. Semester 2: CS 6401, elective. Semester 3: Electives (2). Semester 4: Thesis/capstone + elective."
+  },
+  {
+    "name": "Data Science",
+    "degree_conferred": "BS",
+    "focus": "minor",
+    "department": "Computer Science",
+    "active": true,
+    "level": "undergraduate",
+    "description": "The Data Science minor provides foundational knowledge in data collection, analysis, visualization, and machine learning for students in any major.",
+    "admission_requirements": "Open to all students. Completion of MATH 1431 and CS 1301 or equivalents.",
+    "credit_hours": 18,
+    "major_requirements": "CS 1301 (or equivalent), MATH 2311 (Probability & Statistics), CS 3320 (Database Systems), CS 4410 (Machine Learning), DATA 3100 (Data Visualization).",
+    "other_requirements": "Minimum grade of C in each course.",
+    "electives": "Choose 3 hours from: CS 4450 (NLP), MATH 4310 (Statistical Learning), BUS 4200 (Business Analytics).",
+    "degree_plan": "Typically completed over 3 semesters alongside primary major."
+  }
+]

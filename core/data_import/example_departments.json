@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Computer Science",
+    "abbreviation": "CS",
+    "active": true
+  },
+  {
+    "name": "Mathematics",
+    "abbreviation": "MATH",
+    "active": true
+  },
+  {
+    "name": "Physics",
+    "abbreviation": "PHYS",
+    "active": true
+  },
+  {
+    "name": "Civil Engineering",
+    "abbreviation": "CE",
+    "active": true
+  },
+  {
+    "name": "Electrical Engineering",
+    "abbreviation": "EE",
+    "active": true
+  },
+  {
+    "name": "Biology",
+    "abbreviation": "BIO",
+    "active": true
+  },
+  {
+    "name": "Chemistry",
+    "abbreviation": "CHEM",
+    "active": true
+  }
+]

@@ -1,0 +1,16 @@
+{% load wagtailimages_tags %}
+
+<div class="clearfix my-6">
+    <figure class="mb-4 {% if self.alignment == 'left' %}md:float-left md:mr-6{% else %}md:float-right md:ml-6{% endif %}" 
+            style="width: {{ self.width_percent }}%;">
+        
+        {% image self.image width-800 as img %}
+        <img src="{{ img.url }}" alt="{{ self.image.title }}" class="w-full h-auto rounded-lg shadow-md">
+        
+        {% if self.caption %}
+            <figcaption class="mt-2 text-sm text-gray-600 italic">
+                {{ self.caption }}
+            </figcaption>
+        {% endif %}
+    </figure>
+</div>

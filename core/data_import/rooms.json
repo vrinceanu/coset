@@ -1,0 +1,23 @@
+[
+  {
+        "building": "TECH",
+        "room_number": "000",
+        "purpose": "office",
+        "department": "Physics",
+        "notes": "generic room"
+  },
+  {
+    "building": "TECH",
+    "room_number": "206",
+    "purpose": "office",
+    "department": "Physics",
+    "notes": "Faculty Office"
+  },
+  {
+    "building": "TECH",
+    "room_number": "201",
+    "purpose": "office",
+    "department": "Physics",
+    "notes": "Department Administrative Office"
+  }
+]

@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Autonomous Systems Laboratory",
+    "principal_investigator": "Smith, John A.",
+    "co_investigators": [
+      "Jones, Mary B.",
+      "Lee, Robert C."
+    ],
+    "student_researchers": [],
+    "publications": "Smith, J.A., Jones, M.B. (2024). Multi-Agent Coordination in Dynamic Environments. IEEE Transactions on Robotics, 40(2), 345-360. DOI:10.1109/TRO.2024.001.\n\nLee, R.C., Smith, J.A. (2023). Scalable Cloud Orchestration for Autonomous Fleets. ACM SIGOPS, 12(1). DOI:10.1145/3580001.",
+    "grants": [
+      "AI-Driven Autonomous Systems for Complex Environments"
+    ],
+    "capabilities": "Multi-robot coordination, reinforcement learning for control, simulation-to-real transfer, edge AI deployment, ROS 2 development, human-robot interaction research.",
+    "equipment": "NVIDIA DGX A100 workstation (320GB GPU memory), fleet of 6 TurtleBot4 mobile robots, 2 Franka Panda robot arms, Intel RealSense depth camera array, motion capture system (10-camera Vicon), high-performance compute cluster (64 cores, 512GB RAM).",
+    "personnel": "2 postdoctoral researchers, 4 PhD students, 3 MS students, 2 undergraduate research assistants.",
+    "safety_requirements": "All personnel must complete robot safety training (online module + in-person orientation) before operating equipment. High-voltage equipment certification required for certain experiments. Emergency stop procedures posted in lab."
+  },
+  {
+    "name": "Cybersecurity Research Group",
+    "principal_investigator": "Jones, Mary B.",
+    "co_investigators": [],
+    "student_researchers": [],
+    "publications": "Jones, M.B. (2024). Adversarial Attacks on Industrial Control Systems. IEEE S&P 2024. Proceedings of the IEEE Symposium on Security and Privacy.",
+    "grants": [
+      "Cybersecurity Education Pathways for Underrepresented Students"
+    ],
+    "capabilities": "Network protocol analysis, penetration testing, malware reverse engineering, ICS/SCADA security, cryptographic protocol design, security education.",
+    "equipment": "Dedicated isolated network lab (20 nodes), hardware security modules, FPGA development boards, packet capture infrastructure.",
+    "personnel": "2 PhD students, 4 MS students.",
+    "safety_requirements": "All research conducted on isolated networks. No testing on production or live systems. IRB approval required for human-subjects studies."
+  }
+]

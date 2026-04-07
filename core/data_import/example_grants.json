@@ -1,0 +1,35 @@
+[
+  {
+    "title": "AI-Driven Autonomous Systems for Complex Environments",
+    "department": "Computer Science",
+    "granting_agency": "National Science Foundation",
+    "program": "CISE – Small Research Initiation",
+    "principal_investigator": "Smith, John A.",
+    "dollar_amount": 499872.00,
+    "start_date": "2023-09-01",
+    "end_date": "2026-08-31",
+    "notes": "Collaborative research with Lee, Robert C. and Jones, Mary B."
+  },
+  {
+    "title": "Resilient Infrastructure Under Extreme Climate Events",
+    "department": "Civil Engineering",
+    "granting_agency": "Department of Transportation",
+    "program": "University Transportation Centers",
+    "principal_investigator": "Garcia, Miguel E.",
+    "dollar_amount": 750000.00,
+    "start_date": "2022-01-01",
+    "end_date": "2024-12-31",
+    "notes": "Joint project with three partner universities"
+  },
+  {
+    "title": "Cybersecurity Education Pathways for Underrepresented Students",
+    "department": "Computer Science",
+    "granting_agency": "National Security Agency",
+    "program": "GenCyber",
+    "principal_investigator": "Jones, Mary B.",
+    "dollar_amount": 145000.00,
+    "start_date": "2024-05-01",
+    "end_date": "2025-04-30",
+    "notes": "Includes summer camp component for K-12 students"
+  }
+]

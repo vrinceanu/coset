@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<!-- Hero Section -->
+<header class="relative bg-cover bg-position-[30%] hero-clip hero-bg overflow-hidden pb-24 min-h-[560px]" style="background-image: url('/media/hero.png'); clip-path: polygon(0 0,100% 0,100% 88%,0 100%);">
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 bg-gradient-to-r from-gray-950/80 via-gray-900/60 to-gray-900/30"></div>
+  <!-- Bottom fade for clip -->
+  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-950/60 to-transparent"></div>
+
+  <div class="relative max-w-6xl mx-auto px-6 pt-20 pb-10">
+    <div class="max-w-xl">
+      <!-- Eyebrow -->
+      <p class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-800 bg-slate-400/10 border border-maroon/30 px-4 py-1.5 mb-8">
+        <span class="w-1.5 h-1.5 rounded-full bg-red-800 inline-block"></span>
+        College of Science, Engineering &amp; Technology
+      </p>
+      <!-- Title -->
+      <h1 class="font-serif font-black text-white leading-tight mb-4"
+          style="font-size:clamp(2.4rem,5vw,4rem); letter-spacing:-0.03em;">
+        New <em class="italic text-red-800">Engineering</em><br>Initiative
+      </h1>
+      <!-- Subtitle bar -->
+      <div class="inline-block bg-maroon px-6 py-2.5 mb-5">
+        <p class="font-serif font-bold text-white text-base md:text-lg tracking-wide">
+          Four Departments &amp; Seven Academic Programs
+        </p>
+      </div>
+      <!-- Tagline -->
+      <p class="font-serif italic text-gray-300 text-base md:text-lg mb-8">
+        Expanding Engineering Education for the Future Workforce
+      </p>
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-4">
+        <a href="#departments" class="bg-maroon text-white font-bold text-sm px-8 py-3 hover:bg-red-800 transition-colors uppercase tracking-wider">
+          Explore Departments
+        </a>
+        <a href="#programs" class="border border-white/40 text-white font-bold text-sm px-8 py-3 hover:bg-white/10 transition-colors uppercase tracking-wider">
+          View Programs
+        </a>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="mt-16 flex flex-wrap gap-4">
+      <div class="border border-white/15 bg-black/30 backdrop-blur-sm px-6 py-4 text-center min-w-[110px]">
+        <p class="font-serif font-black text-3xl text-white">4</p>
+        <p class="text-xs uppercase tracking-widest text-gray-400 mt-1">Departments</p>
+      </div>
+      <div class="border border-white/15 bg-black/30 backdrop-blur-sm px-6 py-4 text-center min-w-[110px]">
+        <p class="font-serif font-black text-3xl text-white">7</p>
+        <p class="text-xs uppercase tracking-widest text-gray-400 mt-1">Programs</p>
+      </div>
+      <div class="border border-white/15 bg-black/30 backdrop-blur-sm px-6 py-4 text-center min-w-[110px]">
+        <p class="font-serif font-black text-3xl text-white">∞</p>
+        <p class="text-xs uppercase tracking-widest text-gray-400 mt-1">Careers</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- DEPARTMENTS -->
+<section id="departments" class="py-20 px-6 bg-gray-50">
+  <div class="max-w-6xl mx-auto">
+    <div class="reveal text-center mb-12">
+      <p class="text-xs font-bold uppercase tracking-widest text-maroon mb-3">What we offer</p>
+      <h2 class="font-serif font-black text-gray-900 text-3xl md:text-4xl" style="letter-spacing:-0.02em;">Our New Departments</h2>
+      <div class="w-16 h-1 bg-maroon mx-auto mt-4"></div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Aerospace -->
+      <div class="dept-card reveal reveal-delay-1 bg-white shadow-md overflow-hidden group cursor-pointer">
+        <div class="relative h-52 overflow-hidden">
+          <img src="/media/asme-logo.png" alt="Aerospace & Mechanical Engineering">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div class="absolute top-3 right-3 bg-maroon text-white text-xs font-bold px-2 py-1 uppercase tracking-wider">Dept 01</div>
+        </div>
+        <div class="bg-maroon p-4">
+          <h3 class="font-serif font-bold text-white text-sm leading-snug">Aerospace &amp;<br>Mechanical Engineering</h3>
+        </div>
+        <div class="p-4 bg-white">
+          <p class="text-xs text-gray-500 leading-relaxed">Designing next-generation aerospace vehicles, propulsion systems, and mechanical innovations.</p>
+        </div>
+      </div>
+
+      <!-- Chemical -->
+      <div class="dept-card reveal reveal-delay-2 bg-white shadow-md overflow-hidden group cursor-pointer">
+        <div class="relative h-52 overflow-hidden">
+          <img src="/media/ceet-logo.png" alt="Chemical & Environmental Engineering">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div class="absolute top-3 right-3 bg-maroon text-white text-xs font-bold px-2 py-1 uppercase tracking-wider">Dept 02</div>
+        </div>
+        <div class="bg-white border-l-4 border-maroon p-4">
+          <h3 class="font-serif font-bold text-gray-800 text-sm leading-snug">Chemical Engineering<br>&amp; Environmental Toxicology</h3>
+        </div>
+        <div class="p-4 bg-white border-t border-gray-100">
+          <p class="text-xs text-gray-500 leading-relaxed">Bridging chemistry, biology, and environmental science to address global sustainability challenges.</p>
+        </div>
+      </div>
+
+      <!-- Civil -->
+      <div class="dept-card reveal reveal-delay-3 bg-white shadow-md overflow-hidden group cursor-pointer">
+        <div class="relative h-52 overflow-hidden">
+          <img src="/media/cets-logo.png" alt="Civil & Environmental Engineering">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div class="absolute top-3 right-3 bg-maroon text-white text-xs font-bold px-2 py-1 uppercase tracking-wider">Dept 03</div>
+        </div>
+        <div class="bg-maroon p-4">
+          <h3 class="font-serif font-bold text-white text-sm leading-snug">Civil Engineering<br>&amp; Transportation Studies</h3>
+        </div>
+        <div class="p-4 bg-white border-t border-gray-100">
+          <p class="text-xs text-gray-500 leading-relaxed">Building resilient infrastructure and shaping the future of sustainable transportation networks.</p>
+        </div>
+      </div>
+
+
+      <!-- Electrical — highlighted -->
+      <div class="dept-card reveal reveal-delay-4 bg-white shadow-xl overflow-hidden group cursor-pointer ring-2 ring-maroon">
+        <div class="relative h-52 overflow-hidden">
+          <img src="/media/eecs-logo.png" alt="Electrical & Computer Engineering">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div class="absolute top-3 right-3 bg-maroon text-white text-xs font-bold px-2 py-1 uppercase tracking-wider">Dept 04</div>
+          <div class="absolute top-3 left-3 bg-yellow-400 text-gray-900 text-xs font-bold px-2 py-1 uppercase tracking-wider">Featured</div>
+        </div>
+        <div class="bg-white border-l-4 border-maroon p-4">
+          <h3 class="font-serif font-bold text-gray-800 text-sm leading-snug">Electrical Engineering<br>&amp; Computer Science</h3>
+        </div>
+        <div class="p-4 bg-white">
+          <p class="text-xs text-gray-500 leading-relaxed">From microchips to AI systems — pushing the frontiers of computing and electrical innovation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMIC PROGRAMS -->
+<section id="programs" class="py-20 px-6 bg-white">
+  <div class="max-w-5xl mx-auto">
+    <div class="reveal text-center mb-12">
+      <p class="text-xs font-bold uppercase tracking-widest text-maroon mb-3">Degrees offered</p>
+      <h2 class="font-serif font-black text-gray-900 text-3xl md:text-4xl" style="letter-spacing:-0.02em;">Our New Academic Programs</h2>
+      <div class="w-16 h-1 bg-maroon mx-auto mt-4"></div>
+    </div>
+
+    <div class="reveal grid grid-cols-1 md:grid-cols-2 gap-0 border border-gray-200 shadow-lg overflow-hidden">
+      <!-- Left -->
+      <div class="divide-y divide-gray-100">
+        <div class="p-3 bg-maroon">
+          <p class="text-xs font-bold uppercase tracking-widest text-white/70">Engineering</p>
+        </div>
+        <div class="prog-item flex items-center gap-4 px-6 py-4 cursor-pointer">
+          <div class="w-8 h-8 rounded-full bg-maroon/10 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-maroon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <div><p class="font-bold text-sm text-gray-800">BS in Mechanical Engineering</p><p class="text-xs text-gray-400 mt-0.5">4-year undergraduate program</p></div>
+        </div>
+        <div class="prog-item flex items-center gap-4 px-6 py-4 cursor-pointer">
+          <div class="w-8 h-8 rounded-full bg-maroon/10 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-maroon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <div><p class="font-bold text-sm text-gray-800">BS in Aerospace Engineering</p><p class="text-xs text-gray-400 mt-0.5">4-year undergraduate program</p></div>
+        </div>
+        <div class="prog-item flex items-center gap-4 px-6 py-4 cursor-pointer">
+          <div class="w-8 h-8 rounded-full bg-maroon/10 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-maroon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <div><p class="font-bold text-sm text-gray-800">BS in Electrical Engineering</p><p class="text-xs text-gray-400 mt-0.5">4-year undergraduate program</p></div>
+        </div>
+        <div class="prog-item flex items-center gap-4 px-6 py-4 cursor-pointer">
+          <div class="w-8 h-8 rounded-full bg-maroon/10 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-maroon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <div><p class="font-bold text-sm text-gray-800">BS in Computer Engineering</p><p class="text-xs text-gray-400 mt-0.5">4-year undergraduate program</p></div>
+        </div>
+      </div>
+      <!-- Right -->
+      <div class="divide-y divide-gray-100 border-t md:border-t-0 md:border-l border-gray-200">
+        <div class="p-3 bg-maroon">
+          <p class="text-xs font-bold uppercase tracking-widest text-white/70">Engineering</p>
+        </div>
+        <div class="prog-item flex items-center gap-4 px-6 py-4 cursor-pointer">
+          <div class="w-8 h-8 rounded-full bg-maroon/10 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-maroon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <div><p class="font-bold text-sm text-gray-800">BS in Chemical Engineering</p><p class="text-xs text-gray-400 mt-0.5">4-year undergraduate program</p></div>
+        </div>
+        <div class="prog-item flex items-center gap-4 px-6 py-4 cursor-pointer">
+          <div class="w-8 h-8 rounded-full bg-maroon/10 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-maroon" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <div><p class="font-bold text-sm text-gray-800">BS in Environmental Engineering</p><p class="text-xs text-gray-400 mt-0.5">4-year undergraduate program</p></div>
+        </div>
+        <div class="prog-item flex items-center gap-4 px-6 py-4 cursor-pointer bg-maroon/5 border-l-4 border-maroon">
+          <div class="w-8 h-8 rounded-full bg-maroon flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          </div>
+          <div><p class="font-bold text-sm text-gray-800">MS in General Engineering</p><p class="text-xs text-maroon font-semibold mt-0.5">Graduate program</p></div>
+        </div>
+        <div class="px-6 py-4 flex items-center gap-4">
+          <div class="w-8 h-8 shrink-0"></div>
+          <p class="text-xs text-gray-300 italic">More programs coming soon</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal mt-10 text-center">
+      <a href="#contact" class="inline-block bg-maroon text-white font-bold text-sm px-10 py-4 hover:bg-red-800 transition-colors uppercase tracking-widest">Apply to a Program</a>
+    </div>
+  </div>
+</section>
+
+<!-- PATHWAY -->
+<section id="pathway" class="py-20 px-6 bg-gray-900 relative overflow-hidden">
+  <div class="absolute inset-0 opacity-5" style="background-image:repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(255,255,255,.5) 60px,rgba(255,255,255,.5) 61px),repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(255,255,255,.5) 60px,rgba(255,255,255,.5) 61px);"></div>
+  <div class="relative max-w-5xl mx-auto">
+    <div class="reveal text-center mb-16">
+      <p class="text-xs font-bold uppercase tracking-widest text-red-800 mb-3">Your journey</p>
+      <h2 class="font-serif font-black text-white text-3xl md:text-4xl" style="letter-spacing:-0.02em;">Pathway to Success</h2>
+      <div class="w-16 h-1 bg-maroon mx-auto mt-4"></div>
+    </div>
+
+    <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0">
+      <div class="pathway-step reveal reveal-delay-1 flex flex-col items-center text-center w-48">
+        <div class="w-24 h-24 rounded-full bg-white/5 border-2 border-white/10 flex items-center justify-center mb-5">
+          <svg class="w-12 h-12 text-red-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <div class="w-8 h-8 rounded-full bg-maroon flex items-center justify-center mb-3">
+          <span class="font-serif font-black text-white text-sm">1</span>
+        </div>
+        <p class="font-serif font-bold text-white text-base">Students</p>
+        <p class="text-xs text-gray-400 mt-1 leading-relaxed">Curious minds ready to shape the future</p>
+      </div>
+
+      <div class="md:flex-1 flex items-center justify-center py-4 md:py-0">
+        <svg class="arrow-pulse w-12 h-6 text-maroon md:rotate-0 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 48 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2 12h40m0 0l-8-8m8 8l-8 8"/></svg>
+      </div>
+
+      <div class="pathway-step reveal reveal-delay-2 flex flex-col items-center text-center w-48">
+        <div class="w-24 h-24 rounded-full bg-white/5 border-2 border-white/10 flex items-center justify-center mb-5">
+          <svg class="w-12 h-12 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+        </div>
+        <div class="w-8 h-8 rounded-full bg-maroon flex items-center justify-center mb-3">
+          <span class="font-serif font-black text-white text-sm">2</span>
+        </div>
+        <p class="font-serif font-bold text-white text-base">Engineering Programs</p>
+        <p class="text-xs text-gray-400 mt-1 leading-relaxed">Rigorous, industry-aligned curricula</p>
+      </div>
+
+      <div class="md:flex-1 flex items-center justify-center py-4 md:py-0">
+        <svg class="arrow-pulse w-12 h-6 text-maroon md:rotate-0 rotate-90" style="animation-delay:.3s" fill="none" stroke="currentColor" viewBox="0 0 48 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2 12h40m0 0l-8-8m8 8l-8 8"/></svg>
+      </div>
+
+      <div class="pathway-step reveal reveal-delay-3 flex flex-col items-center text-center w-48">
+        <div class="w-24 h-24 rounded-full bg-white/5 border-2 border-white/10 flex items-center justify-center mb-5">
+          <svg class="w-12 h-12 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <div class="w-8 h-8 rounded-full bg-maroon flex items-center justify-center mb-3">
+          <span class="font-serif font-black text-white text-sm">3</span>
+        </div>
+        <p class="font-serif font-bold text-white text-base">Research &amp; Innovation</p>
+        <p class="text-xs text-gray-400 mt-1 leading-relaxed">Solving real-world engineering challenges</p>
+      </div>
+
+      <div class="md:flex-1 flex items-center justify-center py-4 md:py-0">
+        <svg class="arrow-pulse w-12 h-6 text-maroon md:rotate-0 rotate-90" style="animation-delay:.6s" fill="none" stroke="currentColor" viewBox="0 0 48 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2 12h40m0 0l-8-8m8 8l-8 8"/></svg>
+      </div>
+
+      <div class="pathway-step reveal reveal-delay-4 flex flex-col items-center text-center w-48">
+        <div class="w-24 h-24 rounded-full bg-white/5 border-2 border-white/10 flex items-center justify-center mb-5">
+          <svg class="w-12 h-12 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <div class="w-8 h-8 rounded-full bg-maroon flex items-center justify-center mb-3">
+          <span class="font-serif font-black text-white text-sm">4</span>
+        </div>
+        <p class="font-serif font-bold text-white text-base">Industry Careers</p>
+        <p class="text-xs text-gray-400 mt-1 leading-relaxed">Leading roles in top engineering firms</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section id="contact" class="py-16 px-6 bg-maroon">
+  <div class="max-w-3xl mx-auto text-center reveal">
+    <h2 class="font-serif font-black text-white text-3xl md:text-4xl mb-4" style="letter-spacing:-0.02em;">
+      Ready to begin your<br><em class="italic">engineering journey?</em>
+    </h2>
+    <p class="text-white/75 text-base mb-8 max-w-xl mx-auto">Applications are now open for all seven programs. Join the next generation of engineers shaping the world.</p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#" class="bg-white text-maroon font-bold text-sm px-8 py-3 hover:bg-gray-100 transition-colors uppercase tracking-wider">Apply Now</a>
+      <a href="#" class="border border-white/40 text-white font-bold text-sm px-8 py-3 hover:bg-white/10 transition-colors uppercase tracking-wider">Request Info</a>
+    </div>
+  </div>
+</section>
+
+<div class="h-1 bg-amber-400 mx-auto"></div>
+
+{% endblock %}
