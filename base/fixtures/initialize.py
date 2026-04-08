@@ -55,7 +55,7 @@ def add_pages(parent_node, data):
     
     for child in data.get("children", []):
         add_pages(new_page, child)
-    return new_page # Return the page object
+    return new_page # Return the page objectd
 
 root = Page.get_first_root_node()
 with transaction.atomic():
@@ -66,7 +66,7 @@ with transaction.atomic():
  
     # 2. REBUILD (Recursive function)
     print("Building tree...")
-    new_home_page = add_pages(root, site_data)
+    new_home_page = add_pages(root, site_data
     # 3. UPDATE SITE SETTINGS
     # Get the default site (usually created by Wagtail by default)
     # or create one if it doesn't exist.

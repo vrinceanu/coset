@@ -17,7 +17,7 @@ function generateDesktopMegamenus() {
         const item = menuData[key];
         const megamenu = document.createElement('div');
         megamenu.id = `megamenu-${key}`;
-        megamenu.className = 'overflow-hidden max-h-0 bg-white/80 border border-slate-900 md:block absolute w-full';
+        megamenu.className = 'overflow-hidden max-h-0 bg-white/80 border border-black md:block absolute w-full';
         
         const inner = document.createElement('div');
         inner.className = 'max-w-7xl mx-auto px-8 py-8';
