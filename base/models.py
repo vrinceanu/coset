@@ -1,3 +1,4 @@
+import os, csv
 from django.db import models
 from urllib3 import request
 from wagtail.models import Page
@@ -5,6 +6,7 @@ from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from core.models import Course, Person, Unit, departments
 from django.db.models import Q
+from django.conf import settings 
 from wagtail.contrib.routable_page.models import RoutablePageMixin, path, route
 from wagtail.images.models import Image
 from wagtail.images import get_image_model_string
@@ -148,9 +150,31 @@ class PersonIndexPage(RoutablePageMixin, Page):
     
 
 
-
     
 
 
 
 
+class InterestFormPage(Page):
+    subtitle = models.CharField(max_length=255, blank=True)
+    
+    content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
+    ]
+
+    def serve(self, request):
+        if request.method == 'POST':
+            # Logic to save to CSV
+            data = request.POST.dict()
+            data.pop('csrfmiddlewaretoken', None)
+            
+            file_path = os.path.join(settings.MEDIA_ROOT, 'cset_submissions.csv')
+            file_exists = os.path.isfile(file_path)
+
+            with open(file_path, 'a', newline='') as f:
+                writer = csv.DictWriter(f, fieldnames=data.keys())
+                if not file_exists:
+                    writer.writeheader()
+                writer.writerow(data)
+                
+        return super().serve(request)

@@ -74,14 +74,38 @@ with transaction.atomic():
 #  hero page
     hero = HeroPage(title="Engineering Initiative", slug="engineering-initiative")
     home.add_child(instance=hero)
+#  Interests form page
+    form = InterestFormPage(title="Engineering Initiative Interest Form", slug="engineering-initiative-interest-form")
+    home.add_child(instance=form)
 
 #  dean's message page
     img = add_image("media/person_photos/mark-weatherspoon.jpg", "mark-weatherspoon")
+    text = """<p>We are very delighted that you have chosen to visit our College’s website to inquire about our many academic programs. 
+Our College is a vibrant and creative place to pursue many fields of study in the following eight academic 
+departments: Biology, Chemistry, Computer Science, Engineering, Environmental & Interdisciplinary Sciences, 
+Mathematics, Physics, and Transportation Studies &Aviation Science and Technology.
+COSET has 20 undergraduate and six graduate programs including a Ph.D. program in Environmental & Interdisciplinary Sciences.</p>
+<p>Moreover, we have three college research centers in addition to the departmental research facilities: 
+(1) Center for Transportation Training and Research (CTTR), (2) Center for Research on Complex Networks (CRCN), and
+(3) Innovative Transportation Research Institute (ITRI). There are two new state-of-the art facilities where our faculty and
+students participate in scholarly activities such as teaching, critical learning, and scientific research in an exemplary diverse
+cultural environment.</p>
+<p>Our College prepares our students to become successful graduates through the scholarly efforts of our accomplished and eminent faculty
+and the effective student support of our enthusiastic and diligent staff. Our academic programs have well-prepared curricula, which is
+supported by the latest practical and theoretical knowledge, equipment and software essential for the preparation of our students in the real world.</p>
+<p>I would like to invite you to browse our website to explore and learn more about our departments, programs and facilities in more detail.
+Also, with equal measure, I would like to invite you to visit our College in person to get a real experience of the unique and
+vibrant atmosphere of COSET and TSU since, as the true expression goes, there is no substitute to real and active personal experience.
+Moreover, I hope you would join us in the COSET in pursuit of academic excellence.<p><br>
+<p>Mark H. Weatherspoon Ph.D.</p>
+<p>Dean</p><p>College of Science, Engineering and Technology</p>"""
+
     deans_welcome = StandardPage(title="Dean's Welcome", slug="deans-welcome",
-        body=[('floating_image', {'image': img, 'caption': 'Mark Weatherspoon, Ph.D.\n Dean and Professor of Electrical Engineering', 'alignment': 'left', 'width_percent': 20}),
-            ('paragraph', '<p>Welcome to the COSET website! We are excited to share our programs, research, and people with you. Explore our site to learn more about our innovative engineering programs, cutting-edge research, and vibrant community.</p>'),
-            ('paragraph', '<br><br><br><br><br><br><br><br>')
-              ]
+        body=[
+            ('paragraph', '<br><h2>Welcome to our website!</h2>'),
+            ('floating_image', {'image': img, 'caption': 'Mark Weatherspoon, Ph.D.\n Dean and Professor of Electrical Engineering', 'alignment': 'left', 'width_percent': 20}),
+            ('paragraph', text),
+            ]
     )
     about.add_child(instance=deans_welcome)
     deans_welcome.save_revision().publish()

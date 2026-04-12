@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen py-12 px-4" x-data="{ step: 1 }">
+    <div class="max-w-3xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden border-t-8 border-maroon">
+        
+        <div class="p-8 text-center">
+            <h1 class="text-3xl font-bold text-maroon">{{ page.title }}</h1>
+            <p class="text-coset-gray3 mt-2">{{ page.subtitle }}</p>
+        </div>
+
+        <div class="px-8 pb-4">
+            <div class="flex justify-between mb-2 text-xs font-bold uppercase text-coset-gray3">
+                <span :class="step >= 1 ? 'text-deep-blue' : ''">01: Contact</span>
+                <span :class="step >= 2 ? 'text-deep-blue' : ''">02: Academic</span>
+                <span :class="step >= 3 ? 'text-deep-blue' : ''">03: Departments</span>
+                <span :class="step >= 4 ? 'text-deep-blue' : ''">04: Programs</span>
+            </div>
+            <div class="w-full bg-gray-200 h-2 rounded-full">
+                <div class="bg-deep-blue h-2 rounded-full transition-all duration-500" :style="'width: ' + (step * 25) + '%'"></div>
+            </div>
+        </div>
+
+        <form method="POST" class="p-8">
+            {% csrf_token %}
+
+            <div x-show="step === 1">
+                <h3 class="text-xl font-semibold mb-4 border-b pb-2">Contact Information</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <input type="text" name="name" placeholder="Full Name [required]" class="w-full border border-solid border-coset-gray2 rounded-md focus:ring-maroon" required>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="email" name="email" placeholder="Email Address [required]" class="w-full border border-solid border-coset-gray2 rounded-md" required>
+                        <input type="tel" name="phone" placeholder="Phone Number" class="w-full border border-solid border-coset-gray2 rounded-md">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" name="city" placeholder="City" class="border border-solid border-coset-gray2 rounded-md">
+                        <input type="text" name="state" placeholder="State" class="border border-solid border-coset-gray2 rounded-md">
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="step === 2">
+                <h3 class="text-xl font-semibold mb-4 border-b pb-2">Academic Background</h3>
+                <div class="space-y-4">
+                    <input type="text" name="institution" placeholder="Current/Previous Institution" class="w-full border border-solid border-coset-gray2 rounded-md">
+                    <select name="student_type" class="w-full border border-solid border-coset-gray2 rounded-md">
+                        <option>Incoming Freshman</option>
+                        <option>Transfer Student</option>
+                        <option>Graduate Student Applicant</option>
+                        <option>Returning Student</option>
+                        <option>Working Professional</option>
+                        <option>Still Exploring</option>
+                    </select>
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" name="gpa" placeholder="Current GPA" class="w-full border border-solid border-coset-gray2 rounded-md">
+                        <input type="text" name="enrollment_term" placeholder="Target Enrollment Term (e.g. Fall 2026)" class="w-full border border-solid border-coset-gray2 rounded-md">
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="step === 3">
+                <h3 class="text-xl font-semibold mb-4 border-b pb-2">Engineering Departments of Interest</h3>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div x-data="{ isSelected: false }" :style="isSelected ? 'background-color: #A1C8E8;' : 'background-color: white;'"
+                         class="p-4 border rounded cursor-pointer hover:border-maroon transition">
+                        <label>
+                        <input type="checkbox" name="dept" value="aerospace_mechanical" class="mr-2" x-model="isSelected"> Aerospace & Mechanical
+                        </label>
+                    </div> 
+                    <div x-data="{ isSelected: false }" :style="isSelected ? 'background-color: #A1C8E8;' : 'background-color: white;'"
+                         class="p-4 border rounded cursor-pointer hover:border-maroon transition">
+                        <label>
+                        <input type="checkbox" name="dept" value="aerospace_mechanical" class="mr-2" x-model="isSelected"> Chemical & Environmental
+                        </label>
+                    </div> 
+                    <div x-data="{ isSelected: false }" :style="isSelected ? 'background-color: #A1C8E8;' : 'background-color: white;'"
+                         class="p-4 border rounded cursor-pointer hover:border-maroon transition">
+                        <label>
+                        <input type="checkbox" name="dept" value="aerospace_mechanical" class="mr-2" x-model="isSelected"> Civil & Transportation
+                        </label>
+                    </div> 
+                    <div x-data="{ isSelected: false }" :style="isSelected ? 'background-color: #A1C8E8;' : 'background-color: white;'"
+                         class="p-4 border rounded cursor-pointer hover:border-maroon transition">
+                        <label>
+                        <input type="checkbox" name="dept" value="aerospace_mechanical" class="mr-2" x-model="isSelected"> Electrical & Computer Science
+                        </label>
+                    </div> 
+                </div>
+                <input type="text" name="how_heard" placeholder="How did you hear about us?" class="w-full border border-coset-gray3 rounded-md">
+            </div>
+
+            <div x-show="step === 4">
+                <h3 class="text-xl font-semibold mb-4 border-b pb-2">Programs & Goals</h3>
+                <div class="mb-4 border p-2 rounded bg-gray-50">
+                    <div class="space-y-2">
+                        <label class="block hover:bg-blue-200"><input type="checkbox" name="prog" value="bs_mechanical"> BS Mechanical Engineering</label>
+                        <label class="block hover:bg-blue-200"><input type="checkbox" name="prog" value="bs_aerospace"> BS Aerospace Engineering</label>
+                        <label class="block hover:bg-blue-200"><input type="checkbox" name="prog" value="bs_electrical"> BS Electrical Engineering</label>
+                        <label class="block hover:bg-blue-200"><input type="checkbox" name="prog" value="bs_computer_engineering"> BS Computer Engineering</label>
+                        <label class="block hover:bg-blue-200"><input type="checkbox" name="prog" value="bs_chemical"> BS Chemical Engineering</label>
+                        <label class="block hover:bg-blue-200"><input type="checkbox" name="prog" value="bs_environmental"> BS Environmental Engineering</label>
+                        <label class="block hover:bg-blue-200"><input type="checkbox" name="prog" value="ms_general_engineering"> MS General Engineering</label>
+                    </div>
+                </div>
+                <textarea name="career_goals" placeholder="What are your career goals?" class="w-full border border-coset-gray3 rounded-md mb-4"></textarea>
+                <label class="flex items-center text-sm">
+                    <input type="checkbox" name="consent" required class="mr-2"> I consent to receive communication from COSET.
+                </label>
+            </div>
+
+            <div class="mt-8 flex justify-between">
+                <button type="button" x-show="step > 1" @click="step--" class="bg-deep-blue text-white px-6 py-2 rounded shadow">Back</button>
+                <button type="button" x-show="step < 4" @click="step++" class="bg-[#0e5eb6] text-white px-6 py-2 rounded shadow ml-auto">Next</button>
+                <button type="submit" x-show="step === 4" class="bg-[#7c183e] text-white px-6 py-2 rounded shadow ml-auto">Submit Application</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+{% endblock %}
