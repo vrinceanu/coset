@@ -34,6 +34,10 @@ urlpatterns = [
     path("search/", search_views.search, name="search"),   
     path('admin/', admin.site.urls),
     path('manage/', include('core.urls')),
-    path("__reload__/", include("django_browser_reload.urls")),
     path('', include(wagtail_urls)),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
+
+if settings.DEBUG:
+    urlpatterns += [
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]

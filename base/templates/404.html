@@ -7,5 +7,8 @@
 {% block content %}
 <h1>Page not found</h1>
 
-<h2>Sorry, this page could not be found.</h2>
+<a href="{% url 'home' %}" class="text-blue-600 hover:underline">
+<img src="/media/404.jpg" alt="Page not found" class="mx-auto mt-10">
+</a>
+
 {% endblock %}

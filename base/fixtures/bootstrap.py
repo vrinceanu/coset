@@ -109,15 +109,208 @@ Moreover, I hope you would join us in the COSET in pursuit of academic excellenc
     )
     about.add_child(instance=deans_welcome)
     deans_welcome.save_revision().publish()
-# student services page
-    student_services = StandardPage(title="Student Services", slug="services")
+
+# Vision, Mission and Strategic Plan
+    text_default = """<h3> Work in progress...</h3>
+<p>We are currently working on developing the content for this page. Please check back soon for updates!</p>
+"""
+    vision_mission = StandardPage(title="Vision, Mission and Strategic Plan", slug="vision-mission-strategic-plan",
+        body=[('paragraph', text_default),])
+    about.add_child(instance=vision_mission)
+    vision_mission.save_revision().publish()
+
+# Administration
+
+# College bylaws
+    college_bylaws = StandardPage(title="College By-Laws", slug="college-by-laws",
+        body=[('paragraph', text_default),])
+    about.add_child(instance=college_bylaws)
+    college_bylaws.save_revision().publish()
+
+
+# Board of advisors
+    board_of_advisors = StandardPage(title="Board of Advisors", slug="board-of-advisors",
+        body=[('paragraph', text_default),])
+    about.add_child(instance=board_of_advisors)
+    board_of_advisors.save_revision().publish()
+
+# Standing committees
+    standing_committees = StandardPage(title="Standing Committees", slug="standing-committees",
+        body=[('paragraph', text_default),])
+    about.add_child(instance=standing_committees)
+    standing_committees.save_revision().publish()
+
+# News and Announcements
+    news_and_announcements = StandardPage(title="News and Announcements", slug="news-announcements",
+        body=[('paragraph', text_default),])
+    about.add_child(instance=news_and_announcements)
+    news_and_announcements.save_revision().publish()
+
+# Work with us
+    work_with_us = StandardPage(title="Work with us", slug="work-with-us",
+        body=[('paragraph', text_default),])
+    about.add_child(instance=work_with_us)
+    work_with_us.save_revision().publish()
+
+# Reports and Newsletters
+    reports_and_newsletters = StandardPage(title="Reports and Newsletters", slug="reports-newsletters",
+        body=[('paragraph', text_default),])
+    about.add_child(instance=reports_and_newsletters)
+    reports_and_newsletters.save_revision().publish()   
+
+# Give to us!
+    give_to_us = StandardPage(title="Give to us!", slug="give-to-us",
+        body=[('paragraph', text_default),])
+    about.add_child(instance=give_to_us)
+    give_to_us.save_revision().publish()
+
+# student services
+    student_services = StandardPage(title="Student Services", slug="services",
+            body=[('paragraph', text_default),])
     students.add_child(instance=student_services)
     student_services.save_revision().publish()
-# highlights and strategic areas page
-    highlights = StandardPage(title="Highlights and Strategic Areas", slug="highlights-strategic-areas")
+
+# advisors & support
+    advisors_and_support = StandardPage(title="Advisors and Support", slug="advisors",
+            body=[('paragraph', text_default),])
+    students.add_child(instance=advisors_and_support)
+    advisors_and_support.save_revision().publish()
+# links for students
+    student_links = StandardPage(title="Student Links", slug="links",
+            body=[('paragraph', text_default),])
+    students.add_child(instance=student_links)
+    student_links.save_revision().publish()
+# Summer Programs and Internships
+    summer_programs = StandardPage(title="Summer Programs and Internships", slug="internships",
+            body=[('paragraph', text_default),])
+    students.add_child(instance=summer_programs)
+    summer_programs.save_revision().publish()
+
+# Scholarships & Fellowships
+    scholarships = StandardPage(title="Scholarships & Fellowships", slug="scholarships",
+            body=[('paragraph', text_default),])
+    students.add_child(instance=scholarships)
+    scholarships.save_revision().publish()
+
+# Student Organizations
+    student_organizations = StandardPage(title="Student Organizations", slug="organizations",
+            body=[('paragraph', text_default),])
+    students.add_child(instance=student_organizations)
+    student_organizations.save_revision().publish()
+
+# Accredited Programs
+    accredited_programs = StandardPage(title="Accredited Programs", slug="accredited-programs",
+            body=[('paragraph', text_default),])
+    academics.add_child(instance=accredited_programs)
+    accredited_programs.save_revision().publish()
+
+# biology
+    biology = StandardPage(title="Biology", slug="biology",
+            body=[('paragraph', text_default),])
+    academics.add_child(instance=biology)
+    biology.save_revision().publish()   
+
+# chemistry
+    chemistry = StandardPage(title="Chemistry", slug="chemistry",
+            body=[('paragraph', text_default),])
+    academics.add_child(instance=chemistry)
+    chemistry.save_revision().publish()
+# mathematics
+    mathematics = StandardPage(title="Mathematics", slug="mathematics",
+            body=[('paragraph', text_default),])
+    academics.add_child(instance=mathematics)
+    mathematics.save_revision().publish()
+# physics
+    physics = StandardPage(title="Physics", slug="physics",
+            body=[('paragraph', text_default),] )
+    academics.add_child(instance=physics)
+    physics.save_revision().publish()
+
+# Aerospace & Mechanical Engineering
+    asme = StandardPage(title="Aerospace & Mechanical Engineering", slug="asme",
+            body=[('paragraph', text_default),])
+    academics.add_child(instance=asme)
+    asme.save_revision().publish()
+
+# Chemical Engineering & Environmental Toxicology
+    ceet = StandardPage(title="Chemical Engineering & Environmental Toxicology", slug="ceet")
+    academics.add_child(instance=ceet)
+    ceet.save_revision().publish()  
+
+# Civil Engineering & Transportation Studies
+    cets = StandardPage(title="Civil Engineering & Transportation Studies", slug="cets",
+            body=[('paragraph', text_default),])
+    academics.add_child(instance=cets)
+    cets.save_revision().publish()
+
+# Electrical Engineering & Computer Science
+    eecs = StandardPage(title="Electrical Engineering & Computer Science", slug="eecs",
+            body=[('paragraph', text_default),])
+    academics.add_child(instance=eecs)
+    eecs.save_revision().publish() 
+
+# highlights and strategic areas
+    highlights = StandardPage(title="Highlights and Strategic Areas", slug="highlights-strategic-areas",
+            body=[('paragraph', text_default),])
     research.add_child(instance=highlights)
     highlights.save_revision().publish()
 
+# research committee
+    committee = StandardPage(title="Research Committee", slug="committee",
+            body=[('paragraph', text_default),])
+    research.add_child(instance=committee)
+    committee.save_revision().publish()
 
+# student research opportunities
+    student_research = StandardPage(title="Student Research Opportunities", slug="student-opportunities",
+            body=[('paragraph', text_default),])
+    research.add_child(instance=student_research)
+    student_research.save_revision().publish()  
 
+# core research resources
+    core_resources = StandardPage(title="Core Research Resources", slug="core-resources",
+            body=[('paragraph', text_default),])
+    research.add_child(instance=core_resources)
+    core_resources.save_revision().publish()
 
+# high performance computing center
+    hpcc = StandardPage(title="High Performance Computing Center", slug="hpcc",
+            body=[('paragraph', text_default),])
+    research.add_child(instance=hpcc)
+    hpcc.save_revision().publish()
+
+# Transportation Training and Research
+    transportation_training = StandardPage(title="Transportation Training and Research", slug="ttr",
+            body=[('paragraph', text_default),])
+    research.add_child(instance=transportation_training)
+    transportation_training.save_revision().publish()
+
+# Innovative Transportation Research
+    innovative_transportation = StandardPage(title="Innovative Transportation Research", slug="itr",
+            body=[('paragraph', text_default),])
+    research.add_child(instance=innovative_transportation)
+    innovative_transportation.save_revision().publish() 
+
+# Scientific Machine Learning
+    scientific_ml = StandardPage(title="Scientific Machine Learning", slug="sciml-ms",
+            body=[('paragraph', text_default),])
+    research.add_child(instance=scientific_ml)
+    scientific_ml.save_revision().publish()
+
+# Microplastics Impacts Research
+    microplastics = StandardPage(title="Microplastics Impacts Research", slug="microplastics",
+            body=[('paragraph', text_default),])
+    research.add_child(instance=microplastics)
+    microplastics.save_revision().publish()
+
+# Geostatistical Intelligence
+    geostatistics = StandardPage(title="Geostatistical Intelligence", slug="geostats",
+            body=[('paragraph', text_default),])
+    research.add_child(instance=geostatistics)
+    geostatistics.save_revision().publish()
+
+# Digital Twins and Robotics
+    digital_twins = StandardPage(title="Digital Twins and Robotics", slug="digital-twins",
+            body=[('paragraph', text_default),])
+    research.add_child(instance=digital_twins)
+    digital_twins.save_revision().publish()

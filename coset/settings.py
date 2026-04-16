@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-dn36#sibg)!fp9m88m!l#l@w+j8cok6zgun!#n1d$tn4f=#kqx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'search',
     'django_browser_reload',
     'markdownify.apps.MarkdownifyConfig',
+    'wagtail.contrib.table_block',
 ]
 
 MIDDLEWARE = [

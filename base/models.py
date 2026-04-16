@@ -13,6 +13,7 @@ from wagtail.images import get_image_model_string
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.fields import StreamField
+from wagtail.contrib.table_block.blocks import TableBlock 
 
 class FloatingImageBlock(blocks.StructBlock):
     image = ImageChooserBlock(required=True)
@@ -37,8 +38,12 @@ class FloatingImageBlock(blocks.StructBlock):
 
 class StandardPage(Page):
     body = StreamField([
-        ('paragraph', blocks.RichTextBlock()),
-        ('floating_image', FloatingImageBlock()), # Add the new block here
+        ('paragraph', 
+           blocks.RichTextBlock(features=['h2','h3','h4','bold','italic',
+            'link','ul','ol','hr','document-link','image','blockquote','subscript','superscript'],
+            default='Some')),
+        ('floating_image', FloatingImageBlock()), 
+        ('table', TableBlock()), # Add the new block here
     ], use_json_field=True)
 
     content_panels = Page.content_panels + [
@@ -53,7 +58,7 @@ class SectionPage(Page):
     """
 
     page_description = "A section header page that organizes content without having its own body text."
-
+    
     max_count = 4
     def serve(self, request, *args, **kwargs):
         return super().serve(request, *args, **kwargs)
