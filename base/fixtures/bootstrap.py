@@ -387,7 +387,8 @@ event = PostPage(
     body ="<p>"+text+"</p>",
     unit = "Aviation Science and Technology",
     image=img,
-    datetime="2026-04-25 16:00:00"
+    datetime="2026-04-25 16:00:00",
+    location="Ellington Field Aviation Complex, Houston, TX"
 )
 posts.add_child(instance=event)
 event.save_revision().publish()

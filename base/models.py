@@ -320,6 +320,7 @@ class PostPage(Page):
     search_fields = Page.search_fields + [
         index.SearchField("summary"),
         index.SearchField("body"),
+        index.SearchField("category"),
         index.FilterField("category"),
         index.FilterField("datetime"),
     ]
@@ -338,6 +339,7 @@ class PostPage(Page):
     ]
  
     subpage_types     = []
+    parent_page_types = ["NewsEventIndexPage",]
     class Meta:
         verbose_name = "Blog Post"
 

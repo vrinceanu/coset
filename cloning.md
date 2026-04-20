@@ -85,6 +85,7 @@ After=network.target
 [Service]
 User=www-data
 WorkingDirectory=/var/www/your-repo
+Environment = "DJANGO_SETTINGS_MODULE=mysite.settings.production"
 ExecStart=/var/www/your-repo/venv/bin/gunicorn your_project.wsgi:application --bind unix:/run/gunicorn.sock
 Restart=always
 
