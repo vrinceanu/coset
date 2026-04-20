@@ -9,6 +9,10 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 WAGTAILADMIN_BASE_URL = "http://localhost:8000"
 ALLOWED_HOSTS = ["*"]
 
+INSTALLED_APPS += ['django_browser_reload',]
+MIDDLEWARE += ['django_browser_reload.middleware.BrowserReloadMiddleware',]
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

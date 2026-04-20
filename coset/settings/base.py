@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'search',
     'markdownify.apps.MarkdownifyConfig',
     'wagtail.contrib.table_block',
-    'django_browser_reload',
 ]
 
 MIDDLEWARE = [
@@ -71,7 +70,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'coset.urls'

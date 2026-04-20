@@ -4,7 +4,8 @@ from .base import *
 DEBUG = False
 
 WAGTAILADMIN_BASE_URL = 'http://coset.tsu.edu'
-ALLOWED_HOSTS = ['coset.tsu.edu', 'www.coset.tsu.edu']
+#ALLOWED_HOSTS = ['coset.tsu.edu', 'www.coset.tsu.edu']
+ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
@@ -12,7 +13,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # DJANGO_SECRET_KEY *should* be specified in the environment. If it's not, generate an ephemeral key.
 if "DJANGO_SECRET_KEY" in os.environ:
@@ -43,3 +43,18 @@ LOGGING = {
         },
     },
 }
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'daniel.vrinceanu@gmail.com'
+EMAIL_HOST_PASSWORD = 'mwnh tybh nqip wloz'
+DEFAULT_FROM_EMAIL = 'Daniel Vrinceanu <daniel.vrinceanu@tsu.edu>'
+WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = DEFAULT_FROM_EMAIL
+
