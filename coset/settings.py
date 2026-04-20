@@ -25,10 +25,9 @@ SECRET_KEY = 'django-insecure-dn36#sibg)!fp9m88m!l#l@w+j8cok6zgun!#n1d$tn4f=#kqx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# DEBUG_TOOLBAR_CONFIG = { 'RESULTS_CACHE_SIZE': 100,  'RENDER_PANELS': True, 'SHOW_TEMPLATE_CONTEXT': True,}
+
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,9 +55,9 @@ INSTALLED_APPS = [
     'base',
     'core',
     'search',
-    'django_browser_reload',
     'markdownify.apps.MarkdownifyConfig',
     'wagtail.contrib.table_block',
+    'django_browser_reload',
 ]
 
 MIDDLEWARE = [
@@ -69,8 +68,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_browser_reload.middleware.BrowserReloadMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'coset.urls'

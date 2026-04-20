@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<h1 class="text-center"> News & Events </h1>
+
+{% if page.hero_intro %}
+<div class="text-center p-4">
+    <p class="text text-gray-700">{{ page.hero_intro }}</p>
+</div>
+{% endif %}
+<!-- ══ MAIN CONTENT ══ -->
+<section>
+{% if not items %}
+  <div>
+    <h3>No items yet</h3>
+    <p>Check back soon for news and upcoming events.</p>
+  </div>
+{% else %}
+ 
+{% with loop_items=items.object_list %}
+<div class="px-40">
+    {% for item in loop_items %}
+    <a href="{% pageurl item %}">
+      <div class="p-4 border rounded border-gray-400 mt-4">
+        <div style="font-family:'Roboto Mono',monospace;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--maroon);font-weight:500;margin-bottom:.5rem;">
+        {% if item.type == 'event' %}
+        🗓️ {{ item.datetime|date:"N j, Y" }} at {{ item.datetime|date:"P" }}
+            {% if item.is_upcoming %}
+              <span style="margin-left:.4rem;background:rgba(157,166,171,.15);color:var(--gray-mid);padding:.1rem .4rem;border-radius:2px;font-size:.55rem;">Upcoming</span>
+            {% endif %}
+        {% else %}
+        🗞️ {{ item.datetime|date:"N j, Y" }}
+        {% endif %}
+        </div>
+        <p class="text-lg font-bold">{{ item.title }}</p>
+        <p class="mb-1">{{ item.summary|truncatewords:22 }}</p>
+        <div class="flex justify-between text-sm">
+          {% if item.type == 'event' and item.location %}
+          <span class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" style="width:12px;height:12px;flex-shrink:0;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            {{ item.location|truncatechars:22 }}
+          </span>
+          {% elif item.type == 'news' and item.author %}
+          <span> ✍🏽 {{ item.author }}</span>
+          {% else %}
+            <span></span>
+          {% endif %}
+          <span class="flex items-center">{% if item.type == 'event' %}View Event{% else %}Read More{% endif %}
+          <svg xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+{% endwith %}
+ 
+  <!-- ══ PAGINATION ══ -->
+{% if items.paginator.num_pages > 1 %}
+  <div style="display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap;padding-top:1rem;border-top:1px solid var(--gray-light);">
+ 
+    <!-- Previous -->
+    {% if items.has_previous %}
+    <a href="?type={{ filter_type }}&page={{ items.previous_page_number }}" class="pg-btn" title="Previous page">
+      <svg xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+    </a>
+    {% else %}
+    <span></span>
+    {% endif %}
+ 
+    <!-- Page numbers -->
+    {% for pg in items.paginator.page_range %}
+      {% if pg == items.number %}
+        <span class="font-bold">{{ pg }}</span>
+      {% elif pg == 1 or pg == items.paginator.num_pages or pg >= items.number|add:"-2" and pg <= items.number|add:"2" %}
+        <a href="?type={{ filter_type }}&page={{ pg }}" class="pg-btn">{{ pg }}</a>
+      {% elif pg == items.number|add:"-3" or pg == items.number|add:"3" %}
+        <span style="color:var(--muted);font-size:.9rem;padding:0 .2rem;">…</span>
+      {% endif %}
+    {% endfor %}
+ 
+    <!-- Next -->
+    {% if items.has_next %}
+    <a href="?type={{ filter_type }}&page={{ items.next_page_number }}" class="pg-btn" title="Next page">
+      <svg xmlns="http://www.w3.org/2000/svg" style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+    </a>
+    {% else %}
+    <span></span>
+    {% endif %}
+ 
+  </div>
+  <p style="text-align:center;font-family:'Roboto Mono',monospace;font-size:.65rem;letter-spacing:.08em;color:var(--muted);margin-top:.85rem;">
+    Page {{ items.number }} of {{ items.paginator.num_pages }} &nbsp;·&nbsp; {{ total_count }} items
+  </p>
+  {% else %}
+  <div class="h-20"></div>
+{% endif %}
+{% endif %}
+</section>
+
+{% endblock %}

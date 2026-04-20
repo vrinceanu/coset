@@ -29,6 +29,7 @@ admin.site.index_title = 'Data Management'
 admin.site.site_url = '/manage/'
 
 urlpatterns = [
+    path("__reload__/", include("django_browser_reload.urls")),
     path('cms/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),   
@@ -36,8 +37,3 @@ urlpatterns = [
     path('manage/', include('core.urls')),
     path('', include(wagtail_urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) 
-
-if settings.DEBUG:
-    urlpatterns += [
-        path("__reload__/", include("django_browser_reload.urls")),
-    ]

@@ -23,7 +23,7 @@ const menuData = {
             {
                 title: 'Community',
                 links: [
-                    { text: 'News & Announcements', href: '/news/' },
+                    { text: 'News & Announcements', href: '/news-events/' },
                     { text: 'Work with us', href: '/about/work-with-us/' },
                     { text: 'Reports & Newsletters', href: '/about/reports/' },
                     { text: 'Give to us!', href: '/about/give-to-us/' }

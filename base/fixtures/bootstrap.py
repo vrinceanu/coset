@@ -7,7 +7,7 @@ import wagtail.images
 from wagtail.images.models import Image
 from wagtail.documents.models import Document
 # Import specific models
-from base.models import StandardPage, SectionPage, HomePage, PersonIndexPage, HeroPage
+from base.models import NewsEventIndexPage, PostPage, StandardPage, SectionPage, PostSectionPage, HomePage, PersonIndexPage, HeroPage
 
 def add_image(path, title):
     with open(path, 'rb') as f:
@@ -62,18 +62,31 @@ with transaction.atomic():
 #  adding section pages
     about = SectionPage(title="About", slug="about")
     home.add_child(instance=about)
+
     students = SectionPage(title="Students", slug="students")
     home.add_child(instance=students)
+
     academics = SectionPage(title="Academics", slug="academics")
     home.add_child(instance=academics)
+
     research = SectionPage(title="Research", slug="research")
     home.add_child(instance=research)
+
+    posts = PostSectionPage(title="Posts", slug="posts")
+    home.add_child(instance=posts)
+
  # people index page   
     people = PersonIndexPage(title="People", slug="people")
     home.add_child(instance=people)
+
+# news and events index page
+    news_events = NewsEventIndexPage(title="News and Events", slug="news-events")
+    home.add_child(instance=news_events)
+
 #  hero page
     hero = HeroPage(title="Engineering Initiative", slug="engineering-initiative")
     home.add_child(instance=hero)
+
 #  Interests form page
     form = InterestFormPage(title="Engineering Initiative Interest Form", slug="engineering-initiative-interest-form")
     home.add_child(instance=form)
@@ -127,7 +140,6 @@ Moreover, I hope you would join us in the COSET in pursuit of academic excellenc
     about.add_child(instance=college_bylaws)
     college_bylaws.save_revision().publish()
 
-
 # Board of advisors
     board_of_advisors = StandardPage(title="Board of Advisors", slug="board-of-advisors",
         body=[('paragraph', text_default),])
@@ -180,6 +192,7 @@ Moreover, I hope you would join us in the COSET in pursuit of academic excellenc
             body=[('paragraph', text_default),])
     students.add_child(instance=student_links)
     student_links.save_revision().publish()
+
 # Summer Programs and Internships
     summer_programs = StandardPage(title="Summer Programs and Internships", slug="internships",
             body=[('paragraph', text_default),])
@@ -314,3 +327,102 @@ Moreover, I hope you would join us in the COSET in pursuit of academic excellenc
             body=[('paragraph', text_default),])
     research.add_child(instance=digital_twins)
     digital_twins.save_revision().publish()
+
+# Testimonial post 1
+img = add_image("media/sarah-johnson.jpg", "sarah-johnson")
+text = "The research opportunities at COSET have been transformative. I've worked on cutting-edge AI projects that will shape my career."
+testimonial= PostPage(
+    category="testimonial",
+    title="Sarah Johnson's Testimonial",
+    slug="sarah-johnson-testimonial",
+    summary=text,
+    body =[('paragraph', text)],
+    author="Sarah Johnson",
+    unit = "Computer Science, Class of 2024",
+    image = img,
+)
+posts.add_child(instance=testimonial)
+testimonial.save_revision().publish()
+
+# Testimonial post 2
+img = add_image("media/michael-chen.jpg", "michael-chen")
+text = "The faculty mentorship and hands-on engineering labs prepared me perfectly for my career at NASA."
+testimonial= PostPage(
+    category="testimonial",     
+    title="Michael Chen's Testimonial",
+    slug="michael-chen-testimonial",
+    summary=text,
+    body =[('paragraph', text)],
+    author="Michael Chen",  
+    unit = "Physics, Class of 2023",
+    image = img,
+)
+posts.add_child(instance=testimonial)
+testimonial.save_revision().publish()
+
+# Testimonial post 3
+img = add_image("media/aisha-patel.jpg", "aisha-patel")
+text = "COSET's commitment to diversity and excellence created an environment where I could thrive both academically and personally."
+testimonial= PostPage(
+    category="testimonial",
+    title="Aisha Patel's Testimonial",
+    slug="aisha-patel-testimonial",
+    summary=text,
+    body =[('paragraph', text)],
+    author="Aisha Patel",
+    unit = "Biology, Class of 2027",
+    image=img,
+)
+posts.add_child(instance=testimonial)
+testimonial.save_revision().publish()
+
+# Event post 
+img = add_image("media/aviation.jpg", "aviation-hangar")
+text = "The building will house the fleet of 12 new 2025 Cirrus SR20 aircraft and enable the TSU aviation program to operate at the airport independently in 7,200 square feet of classrooms and offices."
+event = PostPage(
+    category="event",
+    title="New TSU Aviation Hangar Unveiled at Ellington Field Aviation Complex",
+    slug="aviation-hangar-unveiled",
+    summary=text,
+    body ="<p>"+text+"</p>",
+    unit = "Aviation Science and Technology",
+    image=img,
+    datetime="2026-04-25 16:00:00"
+)
+posts.add_child(instance=event)
+event.save_revision().publish()
+
+# Announcement post
+img = add_image("media/new-engineering.png", "new-engineering")
+text = "The College of Science, Engineering, and Technology proudly announces that the Board of Regents has officially approved the creation of four new engineering departments and seven new engineering academic programs."
+text2 = text+"This milestone marks a significant step forward in strengthening COSET’s commitment to innovation, workforce development, and excellence in engineering education. The new departments and programs will expand opportunities for students, support cutting-edge research, and address critical needs in high-demand engineering fields."
+
+announcement = PostPage(
+    category="announcement",
+    title="COSET Announces Major Expansion in Engineering Education",
+    slug="new-engineering",
+    summary=text,
+    body="<p>"+text2+"</p>",
+    unit = "Dean's Office",
+    image=img,
+    datetime="2026-02-19 00:00:00"
+)
+posts.add_child(instance=announcement)
+announcement.save_revision().publish()  
+
+# Research post 
+img = add_image("media/msipp-grant.png", "msipp-grant")
+text = "Professors awarded a $4.7 million academic research grant from the U.S. Department of Energy’s National Nuclear Security Administration to lead the Consortium for Research and Education for Advanced Manufacturing of Alloys for Extreme Conditions (REAM)."
+text2 = text+"Texas Southern will lead the research consortium that consists of two additional academic partners: Howard University and Texas A&M University. Together, the consortium institutions will investigate advanced manufacturing of alloys in extreme conditions."
+research = PostPage(
+    category="research",
+    title="COSET Receives Major Research Grant",
+    slug="msipp-grant",
+    summary=text,
+    body="<p>"+text2+"</p>",
+    unit = "physics",
+    image=img,
+    datetime="2026-01-09 00:00:00"
+)
+posts.add_child(instance=research)
+research.save_revision().publish()  

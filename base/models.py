@@ -1,19 +1,24 @@
+from multiprocessing import context
 import os, csv
 from django.db import models
 from urllib3 import request
-from wagtail.models import Page
+from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel, PageChooserPanel
 from core.models import Course, Person, Unit, departments
 from django.db.models import Q
 from django.conf import settings 
+from django.utils import timezone
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from wagtail.contrib.routable_page.models import RoutablePageMixin, path, route
 from wagtail.images.models import Image
 from wagtail.images import get_image_model_string
 from wagtail import blocks
+from wagtail.search import index
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.fields import StreamField
-from wagtail.contrib.table_block.blocks import TableBlock 
+from wagtail.contrib.table_block.blocks import TableBlock
+from modelcluster.fields import ParentalKey
 
 class FloatingImageBlock(blocks.StructBlock):
     image = ImageChooserBlock(required=True)
@@ -63,6 +68,36 @@ class SectionPage(Page):
     def serve(self, request, *args, **kwargs):
         return super().serve(request, *args, **kwargs)
 
+class PostSectionPage(Page):
+    page_description = "A section header page that organizes posts"
+    max_count = 1
+    subpage_types = ["PostPage"]
+    def serve(self, request, *args, **kwargs):
+        return super().serve(request, *args, **kwargs)
+
+class HomePageFeaturedPost(Orderable):
+    page = ParentalKey('HomePage', related_name='featured_posts')
+    featured_post = models.ForeignKey(
+        'PostPage', # Replace with your actual blog page model
+        on_delete=models.CASCADE,
+        related_name='+'
+    )
+
+    panels = [
+        PageChooserPanel('featured_post'),
+    ]
+
+class HomePageTestimonialPost(Orderable):
+    page = ParentalKey('HomePage', related_name='testimonial_posts')
+    testimonial_post = models.ForeignKey(
+        'PostPage', # Replace with your actual blog page model
+        on_delete=models.CASCADE,
+        related_name='+')
+    
+    panels = [
+        PageChooserPanel('testimonial_post'),
+    ]
+
 class HomePage(Page):
     """
     The homepage of the site, which can have a custom template and content.
@@ -82,7 +117,9 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('hero_title'),
         FieldPanel('hero_cta_text'),
-        FieldPanel('hero_image'),  
+        FieldPanel('hero_image'),
+        InlinePanel('featured_posts',    label="Featured Posts", max_num=3, min_num=0),
+        InlinePanel('testimonial_posts', label="Testimonial Posts", max_num=3, min_num=0),
     ]
 
 class HeroPage(Page):
@@ -152,13 +189,8 @@ class PersonIndexPage(RoutablePageMixin, Page):
         
         return self.render(request,
                 context_overrides = {'person': person}, template='person_page.html')
-    
 
-
-    
-
-
-
+    subpage_types = []
 
 class InterestFormPage(Page):
     subtitle = models.CharField(max_length=255, blank=True)
@@ -183,3 +215,150 @@ class InterestFormPage(Page):
                 writer.writerow(data)
                 
         return super().serve(request)
+class NewsEventIndexPage(Page):
+    """
+    A page that lists all news and events, with links to individual pages.
+    """
+
+    page_description = "A page that lists all news and events, with links to individual pages."
+
+    max_count = 1
+    
+    hero_intro = models.CharField(
+        max_length=300,
+        blank=True,
+        default="The latest news, announcements, and events from COSET",
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("hero_intro"),
+    ]
+
+    subpage_types = ["PostPage"]
+    class Meta:
+        verbose_name = "News & Events Index Page"
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+ 
+        # ── collect    
+        post_qs = PostPage.objects.live().public().filter(category__in=
+            ["event","announcement","research","award","partnership","student","faculty"]
+            )      
+        items = []
+        for page in post_qs:
+            if page.category == "event":
+                page.type = "event"
+            else:
+                page.type      = "news"
+            items.append(page)
+        
+        # Sort newest-first
+        items.sort(key=lambda p: p.datetime or timezone.now(), reverse=True)
+ 
+        # ── filter by type if ?type= param supplied ───────────────────────────
+        filter_type = request.GET.get("type", "all")
+        if filter_type == "news":
+            items = [i for i in items if i._type == "news"]
+        elif filter_type == "event":
+            items = [i for i in items if i._type == "event"]
+ 
+        # ── paginate ──────────────────────────────────────────────────────────
+        ITEMS_PER_PAGE = 10
+        paginator = Paginator(items, ITEMS_PER_PAGE)
+        page_num  = request.GET.get("page")
+        try:
+            page_obj = paginator.page(page_num)
+        except PageNotAnInteger:
+            page_obj = paginator.page(1)
+        except EmptyPage:
+            page_obj = paginator.page(paginator.num_pages)
+ 
+        context["items"]       = page_obj
+        context["paginator"]   = paginator
+        context["filter_type"] = filter_type
+        context["total_count"] = len(items)
+
+        return context
+    
+CATEGORY_CHOICES = [
+    ("event",         "Event"),
+    ("announcement",  "Announcement"),
+    ("research",      "Research"),
+    ("award",         "Award & Recognition"),
+    ("partnership",   "Partnership"),
+    ("student",       "Student Achievement"),
+    ("faculty",       "Faculty Spotlight"),
+    ("general",       "General Post"),
+    ("testimonial",    "Testimonial"),
+    ("scholarship",    "Scholarship"),
+    ("seminar",        "Seminar"),
+    ("internship",     "Internship"),
+]
+class PostPage(Page):
+    """
+    Individual news article. Must live under Posts.
+    """ 
+    # ── metadata fields ───────────────────────────────────────────────────────────
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default="general")
+    datetime = models.DateTimeField("Start Date & Time", default=timezone.now)    
+    author   = models.CharField(max_length=200, blank=True, help_text="For News: the person(s) involved in the news item. For Events: the organizer or featured speaker.")
+    location = models.CharField(max_length=300, blank=True, help_text="For Events: the event location. For News: optional location associated with the news item.")
+    url      = models.URLField(blank=True, help_text="Link to RSVP / registration form/ Optional Google Maps or venue URL.")    
+    unit     = models.CharField(max_length=100, blank=True, help_text="Optional unit/department associated with this news item.")
+    # --- core fields 
+    summary = models.TextField( max_length=400, help_text="Short summary shown on the index card (max 400 chars).")
+    body    = RichTextField()
+    image   = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    # ── search ────────────────────────────────────────────────────────────────
+    search_fields = Page.search_fields + [
+        index.SearchField("summary"),
+        index.SearchField("body"),
+        index.FilterField("category"),
+        index.FilterField("datetime"),
+    ]
+ 
+    # ── admin panels ──────────────────────────────────────────────────────────
+    content_panels = Page.content_panels + [
+        MultiFieldPanel([
+            FieldRowPanel([ FieldPanel("category"), FieldPanel("datetime"),]),
+            FieldRowPanel([ FieldPanel("author"), FieldPanel("location"),]),
+            FieldPanel("unit"),
+            FieldPanel("url"),
+        ], heading="Metadata"),
+        FieldPanel("summary"),
+        FieldPanel("image"),
+        FieldPanel("body"),
+    ]
+ 
+    subpage_types     = []
+    class Meta:
+        verbose_name = "Blog Post"
+
+    @property
+    def is_upcoming(self):
+        return self.datetime >= timezone.now()
+ 
+    @property
+    def is_past(self):
+        return self.datetime < timezone.now()
+ 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        # Related news (same category, excluding self)
+        context["related"] = (
+            PostPage.objects.sibling_of(self)
+            .live()
+            .public()
+            .filter(category=self.category)
+            .exclude(pk=self.pk)
+            .order_by("-datetime")[:3]
+        )
+        return context
+ 

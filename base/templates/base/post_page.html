@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+
+<article class="max-w-4xl mx-auto py-10">
+    <p> {{ page.category | capfirst }}
+    <span style="font-family:'Roboto Mono',monospace;font-size:.72rem;letter-spacing:.08em;color:black;opacity:.5;margin-left:8px;">
+      {{ page.datetime|date:"F j, Y" }}
+    </span></p>
+
+    <h1 class="py-10">{{ page.title }}</h1>
+    {% if page.author %}
+      <span style="width:1px;height:14px;background:rgba(255,255,255,.2);"></span>
+      <span style="font-size:.82rem;color:black;">By {{ page.author }}</span>
+    {% endif %}
+    
+    {% image page.image width-600 %}
+
+    <div class="prose py-10"> 
+      {{ page.body|richtext }}
+    </div>
+
+    {% if page.url %}
+      <a href="{{ page.url }}" target="_blank" class="inline-flex items-center gap-1 mt-6 text-sm font-medium text-maroon">
+    Read Original Source
+      <svg xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    {% endif %}
+
+</article>
+{% endblock %}
