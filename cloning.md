@@ -132,6 +132,10 @@ sudo certbot --nginx -d your-domain.com
 ```bash
 cd /var/www/your-repo
 git pull origin main
+git fetch origin
+git reset --hard origin/main
+git clean -fd
+source venv/bin/ac
 source venv/bin/activate
 pip install -r requirements.txt
 python manage.py migrate
