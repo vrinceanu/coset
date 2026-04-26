@@ -50,7 +50,7 @@ class StandardPage(Page):
             default='Some')),
         ('floating_image', FloatingImageBlock()), 
         ('table', TableBlock()),
-#        ('markdown', MarkdownBlock(icon="code")),
+        ('markdown', MarkdownBlock(icon="code")),
     ], use_json_field=True)
 
     content_panels = Page.content_panels + [

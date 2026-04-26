@@ -8,6 +8,7 @@ Models represent the main data entities:
 
 from django.db import models
 from django.utils.text import slugify
+from core.departments import departments
 
 
 # ─────────────────────────────────────────────
@@ -65,22 +66,6 @@ class RoomPurpose(models.TextChoices):
     STORAGE     = 'storage',     'Storage'
     SERVER      = 'server',      'Server Room'
     OTHER       = 'other',       'Other'
-
-# ─────────────────────────────────────────────
-# Department (lookup table)
-# ─────────────────────────────────────────────
-
-departments = [
-    {'name': 'Biology', 'abbreviation': 'BIOL', 'slug': 'biology'},
-    {'name': 'Chemistry', 'abbreviation': 'CHEM', 'slug': 'chemistry'},
-    {'name': 'Mathematical Sciences', 'abbreviation': 'MATH', 'slug': 'mathematics'},
-    {'name': 'Physics', 'abbreviation': 'PHYS', 'slug': 'physics'},
-    {'name': 'Aerospace & Mechanical Engineering', 'abbreviation': 'ASME', 'slug': 'asme'},
-    {'name': 'Chemical Engineering & Environmental Toxicology', 'abbreviation': 'CEET', 'slug': 'ceet'},
-    {'name': 'Civil Engineering & Transportation Studies', 'abbreviation': 'CETS', 'slug': 'cets'},
-    {'name': 'Electrical Engineering & Computer Science', 'abbreviation': 'EECS', 'slug': 'eecs'},
-    {'name': 'Dean\'s Office', 'abbreviation': 'ADMIN', 'slug': 'deans-office'},
-]
 
 
 # ─────────────────────────────────────────────

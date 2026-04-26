@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
+{% load wagtailmarkdown %}
 
 {% block content %}
 <article class="prose mx-auto py-10">
@@ -9,6 +10,10 @@
             <div class="prose">
                 {{ block.value | richtext }}
             </div>
+        {% elif block.block_type == 'markdown' %}
+            <div class="prose markdown-block">
+                {{ block.value | markdown }}
+            </div>            
         {% else %}
             {{ block }}
         {% endif %}
