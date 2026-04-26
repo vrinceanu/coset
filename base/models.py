@@ -19,6 +19,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.fields import StreamField
 from wagtail.contrib.table_block.blocks import TableBlock
 from modelcluster.fields import ParentalKey
+from wagtailmarkdown.blocks import MarkdownBlock
 
 class FloatingImageBlock(blocks.StructBlock):
     image = ImageChooserBlock(required=True)
@@ -48,7 +49,8 @@ class StandardPage(Page):
             'link','ul','ol','hr','document-link','image','blockquote','subscript','superscript'],
             default='Some')),
         ('floating_image', FloatingImageBlock()), 
-        ('table', TableBlock()), # Add the new block here
+        ('table', TableBlock()),
+#        ('markdown', MarkdownBlock(icon="code")),
     ], use_json_field=True)
 
     content_panels = Page.content_panels + [

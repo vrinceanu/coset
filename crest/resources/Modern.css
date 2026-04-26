@@ -1,0 +1,228 @@
+﻿body
+{
+    font-family: Calibri, Arial, Sans-Serif;    
+    font-weight: normal;
+    margin: 0px;
+    padding: 1em;
+    background-color: White;
+    min-width: 1030px;
+    background-color: CornFlowerBlue;    
+}
+.visLbl
+{
+    font-size: small;
+}
+div#container
+{
+    width: 1000px;
+    margin: auto;
+    border: 1px solid black;
+    background-color: White;
+}
+#banner, .main, #footer
+{
+    margin: auto;
+    background-color: White;
+    border: 1px solid black;
+}
+.main
+{
+    margin: 0 .5em 0 .5em;    
+}
+#footer
+{
+    margin: 0 .5em .5em .5em;    
+}
+#banner
+{
+    margin: .5em .5em 0 .5em;    
+} 
+.titlNtxt .titl
+{
+    color: White;
+    font-weight: bold;
+    padding: .25em .25em .25em .75em;
+    border: none;
+    margin: 0px;
+}
+
+.titlNtxt .txt
+{
+    border: 1px solid Maroon;
+    padding: 0 1em .5em 1em;
+}
+.verMen
+{
+    list-style-type: none;
+    padding: 0;
+    margin: 0px;
+}
+.verMen li:FIRST-CHILD
+{
+    font-weight: bold;
+    padding: .25em .25em .25em .75em;
+    background-image: none;
+    border: none;
+}
+.verMen li.navLinkItm, .verMen li.navLinkItm a
+{
+    font-size: large;
+    padding: .1em .25em .1em .75em;
+    border: 1px solid Maroon;
+    border-top: none;
+}
+.verMenliSel, .navLinkItm:HOVER
+{
+    background-color: Silver;
+    background-position: left center;
+    cursor: pointer;
+    color: Maroon;
+}
+.leftPanl
+{
+    width: 15em;
+}
+.picFrame
+{
+    vertical-align: top;            
+    margin: .5em;
+}  
+div#tabs .ui-tabs-nav {
+	text-align: center;
+	font-size: medium;
+}
+div#tabs .ui-tabs-nav li {
+	display: inline-block;
+	float: none;
+	margin: 0em;
+}
+p:first-letter
+{
+    font-size: x-large;
+    font-weight: bold;
+}
+div.main
+{
+    min-height: 400px;
+}
+.header
+{
+    border-bottom: 1px solid Maroon;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+.ui-widget {
+    font-family: Arial,sans-serif;
+    font-size: 1em;
+}
+.center
+{
+    text-align: center;
+}
+.main
+{
+    background-color: White;
+}
+#footer, #navMen, .titlNtxt .titl, .verMen li:FIRST-CHILD
+{    
+    /*
+    background-image: url("../images/MaroonBar1.png");
+    background-position: left center;
+    */
+    background-color: Maroon;
+    color: White;
+}
+#navMen
+{
+    text-align: center;
+    padding: .5em 0 .45em 0;
+    vertical-align: middle;
+    border: none;
+}
+.menuItem
+{         
+    text-decoration: none;
+    color: White;
+    font-weight: bold;
+    padding: .4em .5em .4em .5em;
+    font-size: large;
+    border-right: 1px solid White;
+}
+.menuItem:HOVER, .menuItemSel
+{    
+    color: Maroon;
+    background-color: White;
+}
+.pplTbl
+{
+    border: 1px solid black;
+    background-color: Beige;    
+}
+.pplTbl th
+{
+    background-color: Crimson;
+    color: White;
+    border: 1px solid black;
+}
+.pplTbl td
+{
+    border: 1px solid black;
+}
+tr.oddRow
+{
+    background-color: LightSteelBlue;
+}
+.pplTbl td
+{
+    vertical-align: top;
+}
+.pplPic
+{
+    width: 75px;
+    height: 100px;
+}
+.conCard
+{
+    border: 1px solid black;
+}
+.naviLeft
+{
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    margin-right: 1em;
+    width: 12em;
+}
+.naviLeft li a
+{
+    text-decoration: none;
+    background-color: Maroon;
+    color: White;
+    border: 2px ridge White;
+    display: block;
+    padding: .25em;
+}
+.naviLeft li a:HOVER, .naviLeftSel
+{
+    color: Maroon;
+    background-color: SkyBlue;
+    border-right: none;
+}
+.menuItem1
+{
+    text-decoration: none;
+    color: White;
+    font-size: small;
+    padding: .5em;
+}
+.menuItem1:HOVER, .campusMenu a:HOVER
+{
+    text-decoration: underline;
+}
+.banHdr
+{
+    text-align: center;
+    color: White;
+    padding: 0 0 1em 0;
+    margin: 0px;
+}

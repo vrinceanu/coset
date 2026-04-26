@@ -1,4 +1,4 @@
-/*! tailwindcss v4.2.2 | MIT License | https://tailwindcss.com */
+/*! tailwindcss v4.2.3 | MIT License | https://tailwindcss.com */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @layer properties;
 @layer theme, base, components, utilities;
@@ -25,7 +25,6 @@
     --color-indigo-500: oklch(58.5% 0.233 277.117);
     --color-pink-600: oklch(59.2% 0.249 0.584);
     --color-slate-300: oklch(86.9% 0.022 252.894);
-    --color-slate-500: oklch(55.4% 0.046 257.417);
     --color-gray-50: oklch(98.5% 0.002 247.839);
     --color-gray-100: oklch(96.7% 0.003 264.542);
     --color-gray-200: oklch(92.8% 0.006 264.531);
@@ -1020,6 +1019,9 @@
   .max-w-360 {
     max-width: calc(var(--spacing) * 360);
   }
+  .max-w-512 {
+    max-width: calc(var(--spacing) * 512);
+  }
   .max-w-full {
     max-width: 100%;
   }
@@ -1325,9 +1327,6 @@
       background-color: color-mix(in oklab, var(--color-maroon) 10%, transparent);
     }
   }
-  .bg-slate-500 {
-    background-color: var(--color-slate-500);
-  }
   .bg-stone-100 {
     background-color: var(--color-stone-100);
   }
@@ -1381,10 +1380,6 @@
     }
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
-  .from-deep-blue {
-    --tw-gradient-from: var(--color-deep-blue);
-    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
   .from-gray-950\/60 {
     --tw-gradient-from: color-mix(in srgb, oklch(13% 0.028 261.692) 60%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -1397,10 +1392,6 @@
     @supports (color: color-mix(in lab, red, red)) {
       --tw-gradient-from: color-mix(in oklab, var(--color-gray-950) 80%, transparent);
     }
-    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
-  .from-green-900 {
-    --tw-gradient-from: var(--color-green-900);
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
   .from-indigo-500 {
@@ -1424,10 +1415,6 @@
     @supports (color: color-mix(in lab, red, red)) {
       --tw-gradient-to: color-mix(in oklab, var(--color-gray-900) 30%, transparent);
     }
-    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-  }
-  .to-green-700 {
-    --tw-gradient-to: var(--color-green-700);
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
   .to-pink-600 {
@@ -1474,9 +1461,6 @@
   .p-8 {
     padding: calc(var(--spacing) * 8);
   }
-  .p-10 {
-    padding: calc(var(--spacing) * 10);
-  }
   .p-20 {
     padding: calc(var(--spacing) * 20);
   }
@@ -1503,9 +1487,6 @@
   }
   .px-12 {
     padding-inline: calc(var(--spacing) * 12);
-  }
-  .px-20 {
-    padding-inline: calc(var(--spacing) * 20);
   }
   .px-40 {
     padding-inline: calc(var(--spacing) * 40);
@@ -1572,9 +1553,6 @@
   }
   .text-left {
     text-align: left;
-  }
-  .align-middle {
-    vertical-align: middle;
   }
   .font-serif {
     font-family: var(--font-serif);
