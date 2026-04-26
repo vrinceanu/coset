@@ -74,19 +74,19 @@ const menuData = {
             {
                 title: 'Departments',
                 links: [
-                    { text: 'Biology', href: 'https://cost.tsu.edu/biology/' },
-                    { text: 'Chemistry', href: '/chemistry/' },
-                    { text: 'Mathematical Sciences', href: '/mathematics/' },
-                    { text: 'Physics', href: '/physics/' }
+                    { text: 'Biology', href: '/departments/biology/' },
+                    { text: 'Chemistry', href: '/departments/chemistry/' },
+                    { text: 'Mathematical Sciences', href: '/departments/mathematics/' },
+                    { text: 'Physics', href: '/departments/physics/' }
                 ]
             },
             {
-                title: '...',
+                title: '',
                 links: [
-                    { text: 'Aerospace & Mechanical Engineering', href: '/asme/' },
-                    { text: 'Chemical Engineering & Environmental Toxicology', href: '/ceet/' },
-                    { text: 'Civil Engineering & Transportation Studies', href: '/cets/' },
-                    { text: 'Electrical Engineering & Computer Science', href: '/eecs/' },
+                    { text: 'Aerospace & Mechanical Engineering', href: '/departments/asme/' },
+                    { text: 'Chemical Engineering & Environmental Toxicology', href: '/departments/ceet/' },
+                    { text: 'Civil Engineering & Transportation Studies', href: '/departments/cets/' },
+                    { text: 'Electrical Engineering & Computer Science', href: '/departments/eecs/' }
                 ]
             }
         ]

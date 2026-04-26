@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold text-coset-gray-dark mb-2">{{ page.title }}</h1>
+
+    {% if page.intro %}
+    <div class="prose max-w-none mb-10 text-slate-700">
+        {{ page.intro|richtext }}
+    </div>
+    {% endif %}
+
+    {% if undergrad %}
+    <section class="mb-10">
+        <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">Undergraduate Programs</h2>
+        <div class="space-y-4">
+            {% for p in undergrad %}
+            <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-coset-gray-dark">{{ p.degree_conferred }} in {{ p.name }}</h3>
+                        <p class="text-sm text-maroon font-medium mt-1">{{ p.get_focus_display }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if graduate %}
+    <section class="mb-10">
+        <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">Graduate Programs</h2>
+        <div class="space-y-4">
+            {% for p in graduate %}
+            <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                <div class="flex items-start justify-between gap-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-coset-gray-dark">{{ p.degree_conferred }} in {{ p.name }}</h3>
+                        <p class="text-sm text-maroon font-medium mt-1">{{ p.get_focus_display }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if certs %}
+    <section class="mb-10">
+        <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">Certificates & Other Programs</h2>
+        <div class="space-y-4">
+            {% for p in certs %}
+            <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
+                <div>
+                    <h3 class="text-lg font-semibold text-coset-gray-dark">{{ p.degree_conferred }} in {{ p.name }}</h3>
+                    <p class="text-sm text-maroon font-medium mt-1">{{ p.get_focus_display }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    {% if not undergrad and not graduate and not certs %}
+    <p class="text-slate-400">No academic programs listed for this department yet.</p>
+    {% endif %}
+
+</div>
+{% endblock %}

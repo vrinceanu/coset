@@ -125,7 +125,7 @@ def courses_list(request):
     department = request.GET.get('department', '')
     q = request.GET.get('q', '')
     if department:
-        qs = qs.filter(department__id=department)
+        qs = qs.filter(department=department)
     if q:
         qs = qs.filter(Q(code__icontains=q) | Q(name__icontains=q))
     context = {

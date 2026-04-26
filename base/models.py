@@ -5,7 +5,8 @@ from urllib3 import request
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel, PageChooserPanel
-from core.models import Course, Person, Program, Unit, departments
+from core.models import Course, Person, Program, Unit
+from core.departments import departments
 from django.db.models import Q
 from django.conf import settings 
 from django.utils import timezone
@@ -217,6 +218,8 @@ class InterestFormPage(Page):
                 writer.writerow(data)
                 
         return super().serve(request)
+
+## --- News and Events
 class NewsEventIndexPage(Page):
     """
     A page that lists all news and events, with links to individual pages.
@@ -366,7 +369,7 @@ class PostPage(Page):
         )
         return context
 
-
+## ---- Departments 
 class DepartmentIndexPage(Page):
     max_count = 1
     subpage_types = ['DepartmentPage']
@@ -428,14 +431,17 @@ class DepartmentFacultyPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
         dept_slug = self.get_parent().specific().department
+        dept_info = next((d for d in departments if d['slug'] == dept_slug), None)
+        dept_abbrev = dept_info['abbreviation'] if dept_info else dept_slug
+
         unit = Unit.objects.filter(slug=dept_slug).first()
         chair_slug = unit.principal.slug if (unit and unit.principal) else None
 
         context['faculty'] = (Person.objects
-            .filter(active=True, department=dept_slug, classification='faculty')
+            .filter(active=True, department=dept_abbrev, classification='faculty')
             .order_by('last_first'))
         context['staff'] = (Person.objects
-            .filter(active=True, department=dept_slug, classification='staff')
+            .filter(active=True, department=dept_abbrev, classification='staff')
             .order_by('last_first'))
         context['chair_slug'] = chair_slug
         context['chair_interim'] = unit.interim if unit else False
@@ -454,8 +460,10 @@ class DepartmentProgramsPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
         dept_slug = self.get_parent().specific().department
+        dept_info = next((d for d in departments if d['slug'] == dept_slug), None)
+        dept_abbrev = dept_info['abbreviation'] if dept_info else dept_slug
         programs = (Program.objects
-            .filter(active=True, department=dept_slug)
+            .filter(active=True, department=dept_abbrev)
             .order_by('level', 'degree_conferred', 'name'))
         context['undergrad'] = [p for p in programs if p.level == 'undergraduate']
         context['graduate']  = [p for p in programs if p.level == 'graduate']

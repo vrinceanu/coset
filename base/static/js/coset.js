@@ -27,10 +27,12 @@ function generateDesktopMegamenus() {
         
         item.sections.forEach(section => {
             const col = document.createElement('div');
-            const title = document.createElement('h3');
-            title.className = 'font-semibold text-deep-blue mb-4 text-lg';
-            title.textContent = section.title;
-            col.appendChild(title);
+            if (section.title) {
+                const title = document.createElement('h3');
+                title.className = 'font-semibold text-deep-blue mb-4 text-lg';
+                title.textContent = section.title;
+                col.appendChild(title);
+            }
             
             const ul = document.createElement('ul');
             ul.className = 'space-y-2';
@@ -76,10 +78,12 @@ function generateMobileNav() {
             const sectionDiv = document.createElement('div');
             sectionDiv.className = 'mb-4';
             
-            const title = document.createElement('h4');
-            title.className = 'font-semibold text-white px-4 py-2';
-            title.textContent = section.title;
-            sectionDiv.appendChild(title);
+            if (section.title) {
+                const title = document.createElement('h4');
+                title.className = 'font-semibold text-white px-4 py-2';
+                title.textContent = section.title;
+                sectionDiv.appendChild(title);
+            }
             
             section.links.forEach(link => {
                 const a = document.createElement('a');

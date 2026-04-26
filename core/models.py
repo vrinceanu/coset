@@ -8,7 +8,7 @@ Models represent the main data entities:
 
 from django.db import models
 from django.utils.text import slugify
-
+from core.departments import departments
 
 # ─────────────────────────────────────────────
 # Choices
@@ -67,23 +67,6 @@ class RoomPurpose(models.TextChoices):
     OTHER       = 'other',       'Other'
 
 # ─────────────────────────────────────────────
-# Department (lookup table)
-# ─────────────────────────────────────────────
-
-departments = [
-    {'name': 'Biology', 'abbreviation': 'BIOL', 'slug': 'biology'},
-    {'name': 'Chemistry', 'abbreviation': 'CHEM', 'slug': 'chemistry'},
-    {'name': 'Mathematical Sciences', 'abbreviation': 'MATH', 'slug': 'mathematics'},
-    {'name': 'Physics', 'abbreviation': 'PHYS', 'slug': 'physics'},
-    {'name': 'Aerospace & Mechanical Engineering', 'abbreviation': 'ASME', 'slug': 'asme'},
-    {'name': 'Chemical Engineering & Environmental Toxicology', 'abbreviation': 'CEET', 'slug': 'ceet'},
-    {'name': 'Civil Engineering & Transportation Studies', 'abbreviation': 'CETS', 'slug': 'cets'},
-    {'name': 'Electrical Engineering & Computer Science', 'abbreviation': 'EECS', 'slug': 'eecs'},
-    {'name': 'Dean\'s Office', 'abbreviation': 'ADMIN', 'slug': 'deans-office'},
-]
-
-
-# ─────────────────────────────────────────────
 # Room
 # ─────────────────────────────────────────────
 
@@ -124,7 +107,7 @@ class Person(models.Model):
                                         blank=True)
     # Affiliation
     department      = models.CharField('Department', max_length=20, null=True, blank=True,
-                                        choices=[(x['slug'], x['name']) for x in departments],
+                                        choices=[(x['abbreviation'], x['name']) for x in departments],
                                         help_text='Primary department affiliation')
     admin_role      = models.CharField('Administrative Role', max_length=100, blank=True,
                                         help_text='e.g. Department Chair, Program Director')
@@ -238,7 +221,7 @@ class Course(models.Model):
     name            = models.CharField(max_length=100)
     description     = models.TextField(blank=True)
     department      = models.CharField('Department', max_length=20, null=True, blank=True,
-                                        choices=[(x['slug'], x['name']) for x in departments],
+                                        choices=[(x['abbreviation'], x['name']) for x in departments],
                                         help_text='Primary department affiliation')
     lecture_credits = models.DecimalField(max_digits=4, decimal_places=1, default=3)
     lab_credits     = models.DecimalField(max_digits=4, decimal_places=1, default=0)
@@ -275,7 +258,7 @@ class Program(models.Model):
                                             default=ProgramFocus.MAJOR)
     name                = models.CharField(max_length=300)
     department          = models.CharField('Department', max_length=20, null=True, blank=True,
-                                        choices=[(x['slug'], x['name']) for x in departments],
+                                        choices=[(x['abbreviation'], x['name']) for x in departments],
                                         help_text='Primary department affiliation')
     active              = models.BooleanField(default=True, db_index=True)
     level               = models.CharField('Graduate / Undergraduate', max_length=15,
