@@ -5,7 +5,7 @@ from urllib3 import request
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel, PageChooserPanel
-from core.models import Course, Person, Unit, departments
+from core.models import Course, Person, Program, Unit, departments
 from django.db.models import Q
 from django.conf import settings 
 from django.utils import timezone
@@ -19,6 +19,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.fields import StreamField
 from wagtail.contrib.table_block.blocks import TableBlock
 from modelcluster.fields import ParentalKey
+from wagtailmarkdown.blocks import MarkdownBlock
 
 class FloatingImageBlock(blocks.StructBlock):
     image = ImageChooserBlock(required=True)
@@ -48,7 +49,8 @@ class StandardPage(Page):
             'link','ul','ol','hr','document-link','image','blockquote','subscript','superscript'],
             default='Some')),
         ('floating_image', FloatingImageBlock()), 
-        ('table', TableBlock()), # Add the new block here
+        ('table', TableBlock()),
+        ('markdown', MarkdownBlock(icon="code")),
     ], use_json_field=True)
 
     content_panels = Page.content_panels + [
@@ -346,11 +348,11 @@ class PostPage(Page):
     @property
     def is_upcoming(self):
         return self.datetime >= timezone.now()
- 
+
     @property
     def is_past(self):
         return self.datetime < timezone.now()
- 
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         # Related news (same category, excluding self)
@@ -363,4 +365,99 @@ class PostPage(Page):
             .order_by("-datetime")[:3]
         )
         return context
- 
+
+
+class DepartmentIndexPage(Page):
+    max_count = 1
+    subpage_types = ['DepartmentPage']
+    page_description = "Lists all department sub-sites."
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['departments'] = self.get_children().live().public().specific()
+        return context
+
+
+class DepartmentPage(Page):
+    department = models.CharField(
+        max_length=20,
+        choices=[(x['slug'], x['name']) for x in departments],
+    )
+    intro = RichTextField(blank=True, features=['bold', 'italic', 'link'])
+    hero_image = models.ForeignKey(
+        get_image_model_string(),
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('department'),
+        FieldPanel('intro'),
+        FieldPanel('hero_image'),
+    ]
+
+    parent_page_types = ['DepartmentIndexPage']
+    subpage_types = ['DepartmentFacultyPage', 'DepartmentProgramsPage', 'StandardPage']
+    page_description = "A department sub-site hub page."
+
+    @property
+    def dept_info(self):
+        return next((d for d in departments if d['slug'] == self.department), None)
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['dept_info'] = self.dept_info
+        context['sub_pages'] = self.get_children().live().public().in_menu()
+        unit = Unit.objects.filter(slug=self.department).first()
+        if unit and unit.principal:
+            context['chair'] = unit.principal
+            context['chair_interim'] = unit.interim
+        return context
+
+
+class DepartmentFacultyPage(Page):
+    intro = RichTextField(blank=True, features=['bold', 'italic', 'link'])
+    content_panels = Page.content_panels + [FieldPanel('intro')]
+
+    parent_page_types = ['DepartmentPage']
+    subpage_types = []
+    max_count_per_parent = 1
+    page_description = "Auto-generated faculty listing for a department."
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        dept_slug = self.get_parent().specific().department
+        unit = Unit.objects.filter(slug=dept_slug).first()
+        chair_slug = unit.principal.slug if (unit and unit.principal) else None
+
+        context['faculty'] = (Person.objects
+            .filter(active=True, department=dept_slug, classification='faculty')
+            .order_by('last_first'))
+        context['staff'] = (Person.objects
+            .filter(active=True, department=dept_slug, classification='staff')
+            .order_by('last_first'))
+        context['chair_slug'] = chair_slug
+        context['chair_interim'] = unit.interim if unit else False
+        return context
+
+
+class DepartmentProgramsPage(Page):
+    intro = RichTextField(blank=True, features=['bold', 'italic', 'link'])
+    content_panels = Page.content_panels + [FieldPanel('intro')]
+
+    parent_page_types = ['DepartmentPage']
+    subpage_types = []
+    max_count_per_parent = 1
+    page_description = "Auto-generated academic programs listing for a department."
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        dept_slug = self.get_parent().specific().department
+        programs = (Program.objects
+            .filter(active=True, department=dept_slug)
+            .order_by('level', 'degree_conferred', 'name'))
+        context['undergrad'] = [p for p in programs if p.level == 'undergraduate']
+        context['graduate']  = [p for p in programs if p.level == 'graduate']
+        context['certs']     = [p for p in programs if p.level not in ('undergraduate', 'graduate')]
+        return context

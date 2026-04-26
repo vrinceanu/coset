@@ -22,7 +22,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -57,8 +57,9 @@ INSTALLED_APPS = [
     'base',
     'core',
     'search',
-    'markdownify.apps.MarkdownifyConfig',
+ #   'markdownify.apps.MarkdownifyConfig',
     'wagtail.contrib.table_block',
+    'wagtailmarkdown',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 WAGTAIL_SITE_NAME = 'College of Science, Engineering and Technology'
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'pdf', 'pptx', 'txt', 'xlsx','jpg']
+
+WAGTAILMARKDOWN = { "extensions": ["toc", "attr_list"], "allowed_tags":["sub","sup"], 
+                   "allowed_attributes":{ "th": ["colspan",]},
+                   }
