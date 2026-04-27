@@ -3,51 +3,56 @@
 {% load person_tags %}
 
 {% block content %}
-<div class="max-w-5xl mx-auto px-4 py-10">
-    <h1 class="text-4xl font-bold text-coset-gray-dark mb-2">{{ page.title }}</h1>
+<div class="max-w-7xl mx-auto px-4 py-10">
+  <h1 class="text-4xl font-bold text-coset-gray-dark mb-8">{{ page.title }}</h1>
 
-    {% if page.intro %}
-    <div class="prose max-w-none mb-10 text-slate-700">
+  <div class="flex gap-8 items-start">
+    {% include "includes/department_sidebar.html" %}
+
+    <main class="flex-1 min-w-0">
+      {% if page.intro %}
+      <div class="prose max-w-none mb-8 text-slate-700">
         {{ page.intro|richtext }}
-    </div>
-    {% endif %}
+      </div>
+      {% endif %}
 
-    {% if chair_slug %}
-    <section class="mb-10">
+      {% if chair_slug %}
+      <section class="mb-10">
         <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">
-            {% if chair_interim %}Interim {% endif %}Chair
+          {% if chair_interim %}Interim {% endif %}Chair
         </h2>
         {% person_card chair_slug %}
-    </section>
-    {% endif %}
+      </section>
+      {% endif %}
 
-    {% if faculty %}
-    <section class="mb-10">
+      {% if faculty %}
+      <section class="mb-10">
         <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">Faculty</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {% for person in faculty %}
-                {% if person.slug != chair_slug %}
-                    {% person_card person.slug %}
-                {% endif %}
-            {% endfor %}
+          {% for person in faculty %}
+            {% if person.slug != chair_slug %}
+              {% person_card person.slug %}
+            {% endif %}
+          {% endfor %}
         </div>
-    </section>
-    {% endif %}
+      </section>
+      {% endif %}
 
-    {% if staff %}
-    <section class="mb-10">
+      {% if staff %}
+      <section class="mb-10">
         <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">Staff</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {% for person in staff %}
-                {% person_card person.slug %}
-            {% endfor %}
+          {% for person in staff %}
+            {% person_card person.slug %}
+          {% endfor %}
         </div>
-    </section>
-    {% endif %}
+      </section>
+      {% endif %}
 
-    {% if not faculty and not staff %}
-    <p class="text-slate-400">No faculty or staff listed for this department yet.</p>
-    {% endif %}
-
+      {% if not faculty and not staff %}
+      <p class="text-slate-400">No faculty or staff listed for this department yet.</p>
+      {% endif %}
+    </main>
+  </div>
 </div>
 {% endblock %}

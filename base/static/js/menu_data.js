@@ -72,7 +72,7 @@ const menuData = {
                 ]
             },
             {
-                title: 'Departments',
+                title: 'Departments', href: '/departments/',
                 links: [
                     { text: 'Biology', href: '/departments/biology/' },
                     { text: 'Chemistry', href: '/departments/chemistry/' },

@@ -3,47 +3,28 @@
 {% load person_tags %}
 
 {% block content %}
-<div class="max-w-5xl mx-auto px-4 py-10">
+<div class="max-w-7xl mx-auto px-4 py-10">
 
-    {% if page.hero_image %}
-    <div class="mb-8 rounded-lg overflow-hidden">
-        {% image page.hero_image width-1200 class="w-full object-cover max-h-64" %}
-    </div>
-    {% endif %}
+  {% if page.hero_image %}
+  <div class="mb-8 rounded-lg overflow-hidden">
+    {% image page.hero_image width-1200 class="w-full object-cover max-h-64" %}
+  </div>
+  {% endif %}
 
-    <h1 class="text-4xl font-bold text-coset-gray-dark mb-2">Department of {{ dept_info.name }}</h1>
-    <p class="text-sm font-bold text-maroon tracking-widest uppercase mb-6">{{ dept_info.abbreviation }}</p>
+  <h1 class="text-4xl font-bold text-coset-gray-dark mb-1">Department of {{ dept_info.name }}</h1>
+  <p class="text-sm font-bold text-maroon tracking-widest uppercase mb-8">{{ dept_info.abbreviation }}</p>
 
-    {% if page.intro %}
-    <div class="prose max-w-none mb-10 text-slate-700">
+  <div class="flex gap-8 items-start">
+    {% include "includes/department_sidebar.html" %}
+
+    <main class="flex-1 min-w-0">
+      {% if page.intro %}
+      <div class="prose max-w-none mb-8 text-slate-700">
         {{ page.intro|richtext }}
-    </div>
-    {% endif %}
-
-    {% if chair %}
-    <section class="mb-10">
-        <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">
-            {% if chair_interim %}Interim {% endif %}Chair
-        </h2>
-        {% person_card chair.slug %}
-    </section>
-    {% endif %}
-
-    {% if sub_pages %}
-    <section>
-        <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">Department Pages</h2>
-        <ul class="space-y-2">
-            {% for sub in sub_pages %}
-            <li>
-                <a href="{% pageurl sub %}"
-                   class="flex items-center gap-2 px-4 py-3 rounded-lg bg-gray-50 hover:bg-maroon hover:text-white text-coset-gray-dark font-medium transition-colors">
-                    {{ sub.title }}
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-    {% endif %}
+      </div>
+      {% endif %}
+    </main>
+  </div>
 
 </div>
 {% endblock %}

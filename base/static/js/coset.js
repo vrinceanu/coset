@@ -27,12 +27,15 @@ function generateDesktopMegamenus() {
         
         item.sections.forEach(section => {
             const col = document.createElement('div');
-            if (section.title) {
-                const title = document.createElement('h3');
-                title.className = 'font-semibold text-deep-blue mb-4 text-lg';
-                title.textContent = section.title;
-                col.appendChild(title);
-            }
+            const title = document.createElement('h3');
+            title.className = 'font-semibold text-deep-blue mb-4 text-lg';
+            if(section.href) {
+                const anch = document.createElement('a');
+                anch.href = section.href;
+                anch.textContent = section.title;
+                title.appendChild(anch);
+            } else {title.textContent = section.title || ' ';}
+            col.appendChild(title);
             
             const ul = document.createElement('ul');
             ul.className = 'space-y-2';

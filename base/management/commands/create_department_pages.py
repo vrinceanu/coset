@@ -31,7 +31,7 @@ class Command(BaseCommand):
                 continue
 
             dept_page = DepartmentPage(
-                title=f"Department of {dept['name']}",
+                title=f"{dept['name']}",
                 slug=dept['slug'],
                 department=dept['slug'],
                 live=True,

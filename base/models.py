@@ -401,7 +401,7 @@ class DepartmentPage(Page):
     ]
 
     parent_page_types = ['DepartmentIndexPage']
-    subpage_types = ['DepartmentFacultyPage', 'DepartmentProgramsPage', 'StandardPage']
+    subpage_types = ['DepartmentFacultyPage', 'DepartmentProgramsPage', 'DepartmentStandardPage']
     page_description = "A department sub-site hub page."
 
     @property
@@ -411,12 +411,37 @@ class DepartmentPage(Page):
     def get_context(self, request):
         context = super().get_context(request)
         context['dept_info'] = self.dept_info
-        context['sub_pages'] = self.get_children().live().public().in_menu()
-        unit = Unit.objects.filter(slug=self.department).first()
-        if unit and unit.principal:
-            context['chair'] = unit.principal
-            context['chair_interim'] = unit.interim
+        context.update(get_dept_sidebar_context(self))
         return context
+
+
+def get_dept_sidebar_context(page):
+    """Return sidebar nav + dept info card context for any page inside a DepartmentPage."""
+    if isinstance(page, DepartmentPage):
+        dept_page = page
+    else:
+        dept_page = (DepartmentPage.objects
+            .ancestor_of(page)
+            .order_by('-depth')
+            .first())
+    if not dept_page:
+        return {}
+
+    nav_items = []
+    for child in dept_page.get_children().live().public().in_menu():
+        grandchildren = list(child.get_children().live().public().in_menu())
+        nav_items.append({
+            'page': child,
+            'children': grandchildren,
+            'is_active': (child.pk == page.pk or page.is_descendant_of(child)),
+        })
+
+    unit = Unit.objects.filter(slug=dept_page.department).first()
+    return {
+        'dept_page': dept_page,
+        'dept_nav_items': nav_items,
+        'dept_unit': unit,
+    }
 
 
 class DepartmentFacultyPage(Page):
@@ -445,6 +470,7 @@ class DepartmentFacultyPage(Page):
             .order_by('last_first'))
         context['chair_slug'] = chair_slug
         context['chair_interim'] = unit.interim if unit else False
+        context.update(get_dept_sidebar_context(self))
         return context
 
 
@@ -468,4 +494,27 @@ class DepartmentProgramsPage(Page):
         context['undergrad'] = [p for p in programs if p.level == 'undergraduate']
         context['graduate']  = [p for p in programs if p.level == 'graduate']
         context['certs']     = [p for p in programs if p.level not in ('undergraduate', 'graduate')]
+        context.update(get_dept_sidebar_context(self))
+        return context
+
+
+class DepartmentStandardPage(Page):
+    body = StreamField([
+        ('paragraph',
+           blocks.RichTextBlock(features=['h2','h3','h4','bold','italic',
+            'link','ul','ol','hr','document-link','image','blockquote','subscript','superscript'])),
+        ('floating_image', FloatingImageBlock()),
+        ('table', TableBlock()),
+        ('markdown', MarkdownBlock(icon="code")),
+    ], use_json_field=True)
+
+    content_panels = Page.content_panels + [FieldPanel('body')]
+
+    parent_page_types = ['DepartmentPage', 'DepartmentStandardPage']
+    subpage_types = ['DepartmentStandardPage']
+    page_description = "A standard content page within a department sub-site (shows dept sidebar)."
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context.update(get_dept_sidebar_context(self))
         return context
