@@ -67,7 +67,7 @@ const menuData = {
                 title: 'Programs',
                 links: [
                     { text: 'Undergraduate', href: '/programs/undergraduate-index/' },
-                    { text: 'Graduate', href: '/programs/undergraduate-index/' },
+                    { text: 'Graduate', href: '/programs/graduate-index/' },
                     { text: 'Accredited Programs', href: '/programs/accreditation/' }
                 ]
             },

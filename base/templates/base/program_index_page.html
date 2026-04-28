@@ -1,0 +1,75 @@
+{% extends "base/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-10">
+  <h1 class="text-3xl font-bold mb-4">{{ page.title }}</h1>
+  {% if page.intro %}
+    <div class="prose mb-8">{{ page.intro|richtext }}</div>
+  {% endif %}
+
+  {% if undergrad %}
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold mb-4">Undergraduate Programs</h2>
+    <ul class="space-y-2">
+      {% for program in undergrad %}
+      <li>
+        {% if program.source_url %}
+          <a href="{{ program.source_url }}" class="text-blue-700 hover:underline font-medium" target="_blank" rel="noopener">
+            {{ program.degree_conferred }} &ndash; {{ program.name }}
+          </a>
+        {% else %}
+          <span class="font-medium">{{ program.degree_conferred }} &ndash; {{ program.name }}</span>
+        {% endif %}
+        {% if program.focus == "minor" %}
+          <span class="ml-2 text-sm text-gray-500">(Minor)</span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if graduate %}
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold mb-4">Graduate Programs</h2>
+    <ul class="space-y-2">
+      {% for program in graduate %}
+      <li>
+        {% if program.source_url %}
+          <a href="{{ program.source_url }}" class="text-blue-700 hover:underline font-medium" target="_blank" rel="noopener">
+            {{ program.degree_conferred }} &ndash; {{ program.name }}
+          </a>
+        {% else %}
+          <span class="font-medium">{{ program.degree_conferred }} &ndash; {{ program.name }}</span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if certs %}
+  <section class="mb-10">
+    <h2 class="text-xl font-semibold mb-4">Certificates</h2>
+    <ul class="space-y-2">
+      {% for program in certs %}
+      <li>
+        {% if program.source_url %}
+          <a href="{{ program.source_url }}" class="text-blue-700 hover:underline font-medium" target="_blank" rel="noopener">
+            {{ program.name }}
+          </a>
+        {% else %}
+          <span class="font-medium">{{ program.name }}</span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+
+  {% if not undergrad and not graduate and not certs %}
+    <p class="text-gray-500">No programs found.</p>
+  {% endif %}
+</div>
+{% endblock %}

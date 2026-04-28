@@ -159,6 +159,27 @@ class CourseIndexPage(Page):
         context['search_query'] = search_query
         return context
 
+class ProgramIndexPage(Page):
+    intro = RichTextField(blank=True)
+
+    page_description = "A page that lists all programs, grouped by level, each linking to its source URL."
+
+    max_count = 1
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+    ]
+
+    def get_context(self, request):
+        from core.models import Program
+        context = super().get_context(request)
+        programs = Program.objects.filter(active=True).order_by("level", "degree_conferred", "name")
+        context["undergrad"] = [p for p in programs if p.level == "undergraduate"]
+        context["graduate"]  = [p for p in programs if p.level == "graduate"]
+        context["certs"]     = [p for p in programs if p.level == "certificate"]
+        return context
+
+
 class PersonIndexPage(RoutablePageMixin, Page):
     """
     A page that lists all people, with links to individual person pages.
@@ -455,21 +476,16 @@ class DepartmentFacultyPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        dept_slug = self.get_parent().specific().department
+        dept_slug = self.get_parent().specific.department
         dept_info = next((d for d in departments if d['slug'] == dept_slug), None)
-        dept_abbrev = dept_info['abbreviation'] if dept_info else dept_slug
+        dept_abbrev = dept_info['abbreviation']
 
         unit = Unit.objects.filter(slug=dept_slug).first()
         chair_slug = unit.principal.slug if (unit and unit.principal) else None
 
-        context['faculty'] = (Person.objects
-            .filter(active=True, department=dept_abbrev, classification='faculty')
-            .order_by('last_first'))
-        context['staff'] = (Person.objects
-            .filter(active=True, department=dept_abbrev, classification='staff')
-            .order_by('last_first'))
-        context['chair_slug'] = chair_slug
-        context['chair_interim'] = unit.interim if unit else False
+        context['people'] = (Person.objects
+            .filter(active=True, department=dept_abbrev).order_by('last_first'))
+        
         context.update(get_dept_sidebar_context(self))
         return context
 
@@ -485,7 +501,7 @@ class DepartmentProgramsPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        dept_slug = self.get_parent().specific().department
+        dept_slug = self.get_parent().specific.department
         dept_info = next((d for d in departments if d['slug'] == dept_slug), None)
         dept_abbrev = dept_info['abbreviation'] if dept_info else dept_slug
         programs = (Program.objects

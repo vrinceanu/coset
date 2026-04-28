@@ -185,8 +185,8 @@ class Unit(models.Model):
     admin_phone     = models.CharField(max_length=30, blank=True)
     admin_fax       = models.CharField(max_length=30, blank=True)
     # Media
-    logo            = models.URLField('Logo URL', blank=True)
-    photo           = models.URLField('Photo URL', blank=True)
+    logo            = models.ImageField('Logo', upload_to='unit_photos/', blank=True, null=True)
+    photo           = models.ImageField('Photo', upload_to='unitexport DJANGO_SETTINGS_MODULE=coset.settings.dev _photos/', blank=True, null=True)
 
     class Meta:
         ordering = ['name']
@@ -273,6 +273,7 @@ class Program(models.Model):
     electives           = models.TextField(blank=True)
     degree_plan         = models.TextField(blank=True,
                                             help_text='Semester-by-semester degree plan narrative or link')
+    source_url          = models.URLField(blank=True, help_text='orgin url in University website')
     # Courses (M2M for structured relationship)
     required_courses    = models.ManyToManyField(Course, blank=True,
                                                   related_name='required_by_programs',

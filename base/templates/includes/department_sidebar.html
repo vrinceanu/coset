@@ -9,8 +9,8 @@
         {% if item.children %}
         <li>
           <details {% if item.is_active %}open{% endif %} class="group">
-            <summary class="flex items-center justify-between gap-2 px-4 py-2 rounded-lg cursor-pointer list-none
-                           {% if item.is_active %}bg-maroon text-white{% else %}bg-gray-100 text-coset-gray-dark hover:bg-maroon hover:text-white{% endif %}
+            <summary class="flex items-center justify-between gap-2 px-4 py-2 rounded-lg border border-gray-400 cursor-pointer list-none
+                           {% if item.is_active %}bg-maroon text-white{% else %}bg-white text-coset-gray-dark hover:bg-maroon hover:text-white{% endif %}
                            font-medium text-sm transition-colors select-none">
               <a href="{% pageurl item.page %}" class="flex-1 truncate" onclick="event.stopPropagation()">
                 {{ item.page.title }}
@@ -19,7 +19,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
               </svg>
             </summary>
-            <ul class="mt-1 ml-3 space-y-1 border-l border-gray-200 pl-3">
+            <ul class="mt-1 ml-3 space-y-1 border-l-4 border-gray-400 bg-white pl-3">
               {% for child in item.children %}
               <li>
                 <a href="{% pageurl child %}"
@@ -36,8 +36,8 @@
         {% else %}
         <li>
           <a href="{% pageurl item.page %}"
-             class="block px-4 py-2 rounded-lg text-sm font-medium transition-colors truncate
-                    {% if item.is_active %}bg-maroon text-white{% else %}bg-gray-100 text-coset-gray-dark hover:bg-maroon hover:text-white{% endif %}">
+             class="block px-4 py-2 rounded-lg text-sm font-medium transition-colors truncate border border-gray-400
+                    {% if item.is_active %}bg-maroon text-white{% else %}bg-white text-coset-gray-dark hover:bg-maroon hover:text-white{% endif %}">
             {{ item.page.title }}
           </a>
         </li>
@@ -48,11 +48,11 @@
   {% endif %}
 
   {% if dept_unit %}
-  <div class="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden text-sm">
+  <div class="bg-white border border-gray-400 rounded-lg shadow-sm overflow-hidden text-sm">
 
     {% if dept_unit.logo %}
-    <div class="p-4 border-b border-gray-100 flex justify-center">
-      <img src="{{ dept_unit.logo }}" alt="{{ dept_unit.name }} logo" class="max-h-16 object-contain">
+    <div class="p-4 border-b border-gray-200 flex justify-center">
+      <img src="/media/{{ dept_unit.logo }}" alt="{{ dept_unit.name }} logo" class="max-h-40 object-contain">
     </div>
     {% endif %}
 

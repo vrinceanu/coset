@@ -170,8 +170,8 @@ def import_units(data):
         "admin_email": "mjones@university.edu",
         "admin_phone": "555-1001",
         "admin_fax": "555-1002",
-        "logo": "computer-logo.jpg",
-        "photo": "computrt-logo.jpg"
+        "logo": "logo-computer.png",
+        "photo": "computer.jpg"
       }
     ]
     unit_type choices: administrative, academic, research
@@ -199,7 +199,7 @@ def import_units(data):
                     'description': item.get('description', ''),
                     'url': item.get('url', ''),
                     'unit_type': item.get('unit_type', 'academic'),
-                    'room': item.get('slug', ''),
+                    'room': item.get('room', ''),
                     'principal': principal,
                     'interim': item.get('interim', False),
                     'principal_email': item.get('principal_email', ''),
@@ -208,8 +208,8 @@ def import_units(data):
                     'admin_email': item.get('admin_email', ''),
                     'admin_phone': item.get('admin_phone', ''),
                     'admin_fax': item.get('admin_fax', ''),
-                    'logo': item.get('logo', ''),
-                    'photo': item.get('photo', ''),
+                    'logo':  "unit_photos/" + item.get('logo', ''),
+                    'photo': "unit_photos/" + item.get('photo', ''),
                 }
             )
             if created:
@@ -307,6 +307,8 @@ def import_programs(data):
                 defaults={
                     'focus': item.get('focus', 'major'),
                     'department': item.get('department', 'NA'),
+                    'degree_conferred': item.get('degree_conferred', 'Other'),
+                    'source_url': item.get('source_url',''),
                     'active': item.get('active', True),
                     'level': item.get('level', 'undergraduate'),
                     'description': item.get('description', ''),

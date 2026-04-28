@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
-{% load person_tags %}
 
 {% block content %}
 <div class="max-w-7xl mx-auto px-4 py-10">
@@ -15,8 +14,6 @@
   <p class="text-sm font-bold text-maroon tracking-widest uppercase mb-8">{{ dept_info.abbreviation }}</p>
 
   <div class="flex gap-8 items-start">
-    {% include "includes/department_sidebar.html" %}
-
     <main class="flex-1 min-w-0">
       {% if page.intro %}
       <div class="prose max-w-none mb-8 text-slate-700">
@@ -24,6 +21,7 @@
       </div>
       {% endif %}
     </main>
+    {% include "includes/department_sidebar.html" %}
   </div>
 
 </div>
