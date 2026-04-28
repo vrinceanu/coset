@@ -1,0 +1,33 @@
+Git Workflow: Merging local feature branch with updated main and deploying to server
+
+1. PULL MAIN INTO LOCAL FEATURE BRANCH
+   git fetch origin
+   git merge origin/main        # or: git rebase origin/main (see note below)
+   # Resolve any conflicts, then commit
+
+2. PUSH UPDATED FEATURE BRANCH
+   git push
+
+3. MERGE PR ON GITHUB
+   # Open the PR on GitHub and merge into main
+   # or via CLI: gh pr merge --merge
+
+4. DEPLOY ON SERVER
+   git pull origin main
+   source venv/bin/activate
+   python manage.py migrate
+   python manage.py collectstatic --noinput
+   sudo systemctl restart coset   # replace 'coset' with actual gunicorn service name
+
+---
+
+NOTE: merge vs. rebase in step 1
+
+  git merge origin/main   — preserves full history of both branches, adds a merge
+                            commit. Simpler and safer.
+
+  git rebase origin/main  — replays your commits on top of main, linear history,
+                            cleaner log. Requires force-push if branch is already
+                            on GitHub (fine for a solo feature branch).
+
+For a solo project, rebase is preferred for a cleaner history.

@@ -5,7 +5,8 @@ from urllib3 import request
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel, PageChooserPanel
-from core.models import Course, Person, Unit, departments
+from core.models import Course, Person, Program, Unit
+from core.departments import departments
 from django.db.models import Q
 from django.conf import settings 
 from django.utils import timezone
@@ -158,6 +159,27 @@ class CourseIndexPage(Page):
         context['search_query'] = search_query
         return context
 
+class ProgramIndexPage(Page):
+    intro = RichTextField(blank=True)
+
+    page_description = "A page that lists all programs, grouped by level, each linking to its source URL."
+
+    max_count = 1
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+    ]
+
+    def get_context(self, request):
+        from core.models import Program
+        context = super().get_context(request)
+        programs = Program.objects.filter(active=True).order_by("level", "degree_conferred", "name")
+        context["undergrad"] = [p for p in programs if p.level == "undergraduate"]
+        context["graduate"]  = [p for p in programs if p.level == "graduate"]
+        context["certs"]     = [p for p in programs if p.level == "certificate"]
+        return context
+
+
 class PersonIndexPage(RoutablePageMixin, Page):
     """
     A page that lists all people, with links to individual person pages.
@@ -217,6 +239,8 @@ class InterestFormPage(Page):
                 writer.writerow(data)
                 
         return super().serve(request)
+
+## --- News and Events
 class NewsEventIndexPage(Page):
     """
     A page that lists all news and events, with links to individual pages.
@@ -348,11 +372,11 @@ class PostPage(Page):
     @property
     def is_upcoming(self):
         return self.datetime >= timezone.now()
- 
+
     @property
     def is_past(self):
         return self.datetime < timezone.now()
- 
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         # Related news (same category, excluding self)
@@ -365,4 +389,148 @@ class PostPage(Page):
             .order_by("-datetime")[:3]
         )
         return context
- 
+
+## ---- Departments 
+class DepartmentIndexPage(Page):
+    max_count = 1
+    subpage_types = ['DepartmentPage']
+    page_description = "Lists all department sub-sites."
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['departments'] = self.get_children().live().public().specific()
+        return context
+
+
+class DepartmentPage(Page):
+    department = models.CharField(
+        max_length=20,
+        choices=[(x['slug'], x['name']) for x in departments],
+    )
+    intro = RichTextField(blank=True, features=['bold', 'italic', 'link'])
+    hero_image = models.ForeignKey(
+        get_image_model_string(),
+        null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel('department'),
+        FieldPanel('intro'),
+        FieldPanel('hero_image'),
+    ]
+
+    parent_page_types = ['DepartmentIndexPage']
+    subpage_types = ['DepartmentFacultyPage', 'DepartmentProgramsPage', 'DepartmentStandardPage']
+    page_description = "A department sub-site hub page."
+
+    @property
+    def dept_info(self):
+        return next((d for d in departments if d['slug'] == self.department), None)
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context['dept_info'] = self.dept_info
+        context.update(get_dept_sidebar_context(self))
+        return context
+
+
+def get_dept_sidebar_context(page):
+    """Return sidebar nav + dept info card context for any page inside a DepartmentPage."""
+    if isinstance(page, DepartmentPage):
+        dept_page = page
+    else:
+        dept_page = (DepartmentPage.objects
+            .ancestor_of(page)
+            .order_by('-depth')
+            .first())
+    if not dept_page:
+        return {}
+
+    nav_items = []
+    for child in dept_page.get_children().live().public().in_menu():
+        grandchildren = list(child.get_children().live().public().in_menu())
+        nav_items.append({
+            'page': child,
+            'children': grandchildren,
+            'is_active': (child.pk == page.pk or page.is_descendant_of(child)),
+        })
+
+    unit = Unit.objects.filter(slug=dept_page.department).first()
+    return {
+        'dept_page': dept_page,
+        'dept_nav_items': nav_items,
+        'dept_unit': unit,
+    }
+
+
+class DepartmentFacultyPage(Page):
+    intro = RichTextField(blank=True, features=['bold', 'italic', 'link'])
+    content_panels = Page.content_panels + [FieldPanel('intro')]
+
+    parent_page_types = ['DepartmentPage']
+    subpage_types = []
+    max_count_per_parent = 1
+    page_description = "Auto-generated faculty listing for a department."
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        dept_slug = self.get_parent().specific.department
+        dept_info = next((d for d in departments if d['slug'] == dept_slug), None)
+        dept_abbrev = dept_info['abbreviation']
+
+        unit = Unit.objects.filter(slug=dept_slug).first()
+        chair_slug = unit.principal.slug if (unit and unit.principal) else None
+
+        context['people'] = (Person.objects
+            .filter(active=True, department=dept_abbrev).order_by('last_first'))
+        
+        context.update(get_dept_sidebar_context(self))
+        return context
+
+
+class DepartmentProgramsPage(Page):
+    intro = RichTextField(blank=True, features=['bold', 'italic', 'link'])
+    content_panels = Page.content_panels + [FieldPanel('intro')]
+
+    parent_page_types = ['DepartmentPage']
+    subpage_types = []
+    max_count_per_parent = 1
+    page_description = "Auto-generated academic programs listing for a department."
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        dept_slug = self.get_parent().specific.department
+        dept_info = next((d for d in departments if d['slug'] == dept_slug), None)
+        dept_abbrev = dept_info['abbreviation'] if dept_info else dept_slug
+        programs = (Program.objects
+            .filter(active=True, department=dept_abbrev)
+            .order_by('level', 'degree_conferred', 'name'))
+        context['undergrad'] = [p for p in programs if p.level == 'undergraduate']
+        context['graduate']  = [p for p in programs if p.level == 'graduate']
+        context['certs']     = [p for p in programs if p.level not in ('undergraduate', 'graduate')]
+        context.update(get_dept_sidebar_context(self))
+        return context
+
+
+class DepartmentStandardPage(Page):
+    body = StreamField([
+        ('paragraph',
+           blocks.RichTextBlock(features=['h2','h3','h4','bold','italic',
+            'link','ul','ol','hr','document-link','image','blockquote','subscript','superscript'])),
+        ('floating_image', FloatingImageBlock()),
+        ('table', TableBlock()),
+        ('markdown', MarkdownBlock(icon="code")),
+    ], use_json_field=True)
+
+    content_panels = Page.content_panels + [FieldPanel('body')]
+
+    parent_page_types = ['DepartmentPage', 'DepartmentStandardPage']
+    subpage_types = ['DepartmentStandardPage']
+    page_description = "A standard content page within a department sub-site (shows dept sidebar)."
+
+    def get_context(self, request):
+        context = super().get_context(request)
+        context.update(get_dept_sidebar_context(self))
+        return context

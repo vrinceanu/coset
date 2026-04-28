@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+
+  {% if page.hero_image %}
+  <div class="mb-8 rounded-lg overflow-hidden">
+    {% image page.hero_image width-1200 class="w-full object-cover max-h-64" %}
+  </div>
+  {% endif %}
+
+  <h1 class="text-4xl font-bold text-coset-gray-dark mb-1">Department of {{ dept_info.name }}</h1>
+  <p class="text-sm font-bold text-maroon tracking-widest uppercase mb-8">{{ dept_info.abbreviation }}</p>
+
+  <div class="flex gap-8 items-start">
+    <main class="flex-1 min-w-0">
+      {% if page.intro %}
+      <div class="prose max-w-none mb-8 text-slate-700">
+        {{ page.intro|richtext }}
+      </div>
+      {% endif %}
+    </main>
+    {% include "includes/department_sidebar.html" %}
+  </div>
+
+</div>
+{% endblock %}

@@ -13,7 +13,7 @@
         {% elif block.block_type == 'markdown' %}
             <div class="prose markdown-block">
                 {{ block.value | markdown }}
-            </div>            
+            </div>
         {% else %}
             {{ block }}
         {% endif %}

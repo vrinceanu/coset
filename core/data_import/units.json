@@ -14,8 +14,8 @@
     "admin_email": "brieanna.horton@tsu.edu",
     "admin_phone": "(713) 313.7005",
     "admin_fax": "(713) 313.7932",
-    "logo": "biology-logo.jpg",
-    "photo": "biology-photo.jpg"
+    "logo": "logo-biology.png",
+    "photo": "photo-biology.jpg"
   },
   {
     "name": "Department of Chemistry",
@@ -32,8 +32,8 @@
     "admin_email": "",
     "admin_phone": "(713) 313.7003",
     "admin_fax": "(713) 313.7824",
-    "logo": "chemistry-logo.jpg",
-    "photo": "chemistry-photo.jpg"
+    "logo": "logo-chemistry.png",
+    "photo": "photo-chemistry.jpg"
   },
   {
     "name": "Department of Mathematical Sciences",
@@ -50,8 +50,8 @@
     "admin_email": "judith.wilson@tsu.edu",
     "admin_phone": "(713) 313.7002",
     "admin_fax": "(713) 313.1928",
-    "logo": "mathematics-logo.jpg",
-    "photo": "mathematics-photo.jpg"
+    "logo": "logo-mathematics.png",
+    "photo": "photo-mathematics.jpg"
   },
   {
     "name": "Department of Physics",
@@ -68,7 +68,7 @@
     "admin_email": "charmyn.simon@tsu.edu",
     "admin_phone": "(713) 313.1846",
     "admin_fax": "(713) 313.1833",
-    "logo": "physics-logo.jpg",
-    "photo": "physics-photo.jpg"
+    "logo": "logo-physics.png",
+    "photo": "photo-physics.jpg"
   }
 ]

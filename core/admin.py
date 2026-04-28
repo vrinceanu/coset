@@ -177,7 +177,7 @@ class ProgramAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Program Identity', {
             'fields': ('name', 'degree_conferred', 'focus', 'level',
-                       'department', 'active')
+                       'department', 'source_url','active')
         }),
         ('Description & Requirements', {
             'fields': ('description', 'admission_requirements', 'credit_hours')

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold text-coset-gray-dark mb-2">{{ page.title }}</h1>
+    <p class="text-slate-500 mb-10">Explore our academic departments and their faculty, programs, and resources.</p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for dept in departments %}
+        <a href="{% pageurl dept %}" class="group block bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 overflow-hidden">
+            <div class="bg-maroon px-4 py-3">
+                <span class="text-xs font-bold text-white/70 tracking-widest uppercase">{{ dept.dept_info.abbreviation }}</span>
+            </div>
+            <div class="p-4">
+                <h2 class="text-base font-semibold text-coset-gray-dark group-hover:text-maroon transition-colors leading-snug">
+                    {{ dept.dept_info.name }}
+                </h2>
+            </div>
+        </a>
+        {% empty %}
+        <p class="text-slate-400 col-span-full">No departments have been set up yet.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

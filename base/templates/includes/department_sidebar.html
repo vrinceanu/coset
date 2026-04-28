@@ -1,0 +1,111 @@
+{% load wagtailcore_tags %}
+
+<aside class="w-64 shrink-0">
+
+  {% if dept_nav_items %}
+  <nav class="mb-6">
+    <ul class="space-y-1">
+      {% for item in dept_nav_items %}
+        {% if item.children %}
+        <li>
+          <details {% if item.is_active %}open{% endif %} class="group">
+            <summary class="flex items-center justify-between gap-2 px-4 py-2 rounded-lg border border-gray-400 cursor-pointer list-none
+                           {% if item.is_active %}bg-maroon text-white{% else %}bg-white text-coset-gray-dark hover:bg-maroon hover:text-white{% endif %}
+                           font-medium text-sm transition-colors select-none">
+              <a href="{% pageurl item.page %}" class="flex-1 truncate" onclick="event.stopPropagation()">
+                {{ item.page.title }}
+              </a>
+              <svg class="w-4 h-4 shrink-0 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </summary>
+            <ul class="mt-1 ml-3 space-y-1 border-l-4 border-gray-400 bg-white pl-3">
+              {% for child in item.children %}
+              <li>
+                <a href="{% pageurl child %}"
+                   class="block px-3 py-1.5 rounded text-sm
+                          {% if child.pk == page.pk %}text-maroon font-semibold{% else %}text-slate-600 hover:text-maroon{% endif %}
+                          transition-colors truncate">
+                  {{ child.title }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </details>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% pageurl item.page %}"
+             class="block px-4 py-2 rounded-lg text-sm font-medium transition-colors truncate border border-gray-400
+                    {% if item.is_active %}bg-maroon text-white{% else %}bg-white text-coset-gray-dark hover:bg-maroon hover:text-white{% endif %}">
+            {{ item.page.title }}
+          </a>
+        </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+  {% endif %}
+
+  {% if dept_unit %}
+  <div class="bg-white border border-gray-400 rounded-lg shadow-sm overflow-hidden text-sm">
+
+    {% if dept_unit.logo %}
+    <div class="p-4 border-b border-gray-200 flex justify-center">
+      <img src="/media/{{ dept_unit.logo }}" alt="{{ dept_unit.name }} logo" class="max-h-40 object-contain">
+    </div>
+    {% endif %}
+
+    <div class="p-4 space-y-4">
+
+      {% if dept_unit.room %}
+      <div class="flex items-start gap-2 text-slate-600">
+        <svg class="w-4 h-4 shrink-0 mt-0.5 text-maroon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+        </svg>
+        <span>{{ dept_unit.room }}</span>
+      </div>
+      {% endif %}
+
+      {% if dept_unit.principal %}
+      <div>
+        <p class="text-xs font-bold text-maroon uppercase tracking-wide mb-1">
+          {% if dept_unit.interim %}Interim {% endif %}Chair
+        </p>
+        <a href="/people/{{ dept_unit.principal.slug }}" class="font-semibold text-deep-blue hover:underline">
+          {{ dept_unit.principal.name }}
+        </a>
+        {% if dept_unit.principal_email %}
+        <a href="mailto:{{ dept_unit.principal_email }}" class="block text-slate-500 hover:text-maroon truncate mt-0.5">
+          {{ dept_unit.principal_email }}
+        </a>
+        {% endif %}
+        {% if dept_unit.principal_phone %}
+        <p class="text-slate-500 mt-0.5">{{ dept_unit.principal_phone }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if dept_unit.admin %}
+      <div>
+        <p class="text-xs font-bold text-maroon uppercase tracking-wide mb-1">Administrative Assistant</p>
+        <a href="/people/{{ dept_unit.admin.slug }}" class="font-semibold text-deep-blue hover:underline">
+          {{ dept_unit.admin.name }}
+        </a>
+        {% if dept_unit.admin_email %}
+        <a href="mailto:{{ dept_unit.admin_email }}" class="block text-slate-500 hover:text-maroon truncate mt-0.5">
+          {{ dept_unit.admin_email }}
+        </a>
+        {% endif %}
+        {% if dept_unit.admin_phone %}
+        <p class="text-slate-500 mt-0.5">{{ dept_unit.admin_phone }}</p>
+        {% endif %}
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+  {% endif %}
+
+</aside>
