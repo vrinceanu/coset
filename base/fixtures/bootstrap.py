@@ -153,7 +153,7 @@ Moreover, I hope you would join us in the COSET in pursuit of academic excellenc
     standing_committees.save_revision().publish()
 
 # News and Announcements
-    news_and_announcements = StandardPage(title="News and Announcements", slug="news-announcements",
+    news_and_announcements = StandardPage(title="News and Announcements", slug="news",
         body=[('paragraph', text_default),])
     about.add_child(instance=news_and_announcements)
     news_and_announcements.save_revision().publish()

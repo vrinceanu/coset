@@ -57,9 +57,8 @@ INSTALLED_APPS = [
     'base',
     'core',
     'search',
- #   'markdownify.apps.MarkdownifyConfig',
     'wagtail.contrib.table_block',
-    'wagtailmarkdown',
+    'wagtailmarkdown'
 ]
 
 MIDDLEWARE = [

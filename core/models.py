@@ -10,6 +10,7 @@ from django.db import models
 from django.utils.text import slugify
 from core.departments import departments
 
+
 # ─────────────────────────────────────────────
 # Choices
 # ─────────────────────────────────────────────
@@ -65,6 +66,7 @@ class RoomPurpose(models.TextChoices):
     STORAGE     = 'storage',     'Storage'
     SERVER      = 'server',      'Server Room'
     OTHER       = 'other',       'Other'
+
 
 # ─────────────────────────────────────────────
 # Room
