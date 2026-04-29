@@ -1,0 +1,21 @@
+write a python program that visits all urls:
+
+https://catalog.tsu.edu/undergraduate/schools-colleges/science-engineering-technology/biology/
+https://catalog.tsu.edu/undergraduate/schools-colleges/science-engineering-technology/chemistry/
+https://catalog.tsu.edu/undergraduate/schools-colleges/science-engineering-technology/computer-science/
+https://catalog.tsu.edu/undergraduate/schools-colleges/science-engineering-technology/engineering/
+https://catalog.tsu.edu/undergraduate/schools-colleges/science-engineering-technology/environmental-interdisciplinary-sciences/
+https://catalog.tsu.edu/undergraduate/schools-colleges/science-engineering-technology/industrial-technologies/
+https://catalog.tsu.edu/undergraduate/schools-colleges/science-engineering-technology/mathematics/
+https://catalog.tsu.edu/undergraduate/schools-colleges/science-engineering-technology/physics/
+https://catalog.tsu.edu/undergraduate/schools-colleges/science-engineering-technology/transportation-studies/
+
+examine the information and create a list of all programs listed under "Undergraduate Degrees". each program has a dictionary with:
+'name', 'degree_conferred', 'department', 'focus': major or minor, 'level': in this case 'undergraduate, 
+'description', 'major_requirements', 'other_requirements', 'electives','credit_hours','degree_plan'
+
+save this list as a json file.
+
+
+
+
