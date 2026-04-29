@@ -13,51 +13,19 @@
       </div>
       {% endif %}
 
-      {% if undergrad %}
       <section class="mb-10">
-        <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">Undergraduate Programs</h2>
+        <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">Academic Programs</h2>
         <div class="space-y-4">
-          {% for p in undergrad %}
+          {% for p in programs %}
+          <a href={{p.source_url}}>
           <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-            <h3 class="text-lg font-semibold text-coset-gray-dark">{{ p.degree_conferred }} in {{ p.name }}</h3>
-            <p class="text-sm text-maroon font-medium mt-1">{{ p.get_focus_display }}</p>
+            <h3 class="text-lg font-semibold text-coset-gray-dark"> {{ p.name }}</h3>
           </div>
+          </a>
           {% endfor %}
         </div>
       </section>
-      {% endif %}
 
-      {% if graduate %}
-      <section class="mb-10">
-        <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">Graduate Programs</h2>
-        <div class="space-y-4">
-          {% for p in graduate %}
-          <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-            <h3 class="text-lg font-semibold text-coset-gray-dark">{{ p.degree_conferred }} in {{ p.name }}</h3>
-            <p class="text-sm text-maroon font-medium mt-1">{{ p.get_focus_display }}</p>
-          </div>
-          {% endfor %}
-        </div>
-      </section>
-      {% endif %}
-
-      {% if certs %}
-      <section class="mb-10">
-        <h2 class="text-2xl font-bold text-coset-gray-dark mb-4">Certificates & Other Programs</h2>
-        <div class="space-y-4">
-          {% for p in certs %}
-          <div class="bg-white border border-gray-200 rounded-lg p-5 shadow-sm">
-            <h3 class="text-lg font-semibold text-coset-gray-dark">{{ p.degree_conferred }} in {{ p.name }}</h3>
-            <p class="text-sm text-maroon font-medium mt-1">{{ p.get_focus_display }}</p>
-          </div>
-          {% endfor %}
-        </div>
-      </section>
-      {% endif %}
-
-      {% if not undergrad and not graduate and not certs %}
-      <p class="text-slate-400">No academic programs listed for this department yet.</p>
-      {% endif %}
     </main>
     {% include "includes/department_sidebar.html" %}
   </div>

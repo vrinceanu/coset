@@ -159,7 +159,7 @@ class CourseIndexPage(Page):
         context['search_query'] = search_query
         return context
 
-class ProgramIndexPage(Page):
+class UndergraduateProgramIndexPage(Page):
     intro = RichTextField(blank=True)
 
     page_description = "A page that lists all programs, grouped by level, each linking to its source URL."
@@ -173,12 +173,28 @@ class ProgramIndexPage(Page):
     def get_context(self, request):
         from core.models import Program
         context = super().get_context(request)
-        programs = Program.objects.filter(active=True).order_by("level", "degree_conferred", "name")
-        context["undergrad"] = [p for p in programs if p.level == "undergraduate"]
-        context["graduate"]  = [p for p in programs if p.level == "graduate"]
-        context["certs"]     = [p for p in programs if p.level == "certificate"]
+        programs = Program.objects.filter(active=True, degree_conferred='BS').order_by("department")
+        context["programs"] = [p for p in programs if 'degree_conferred' == 'BS']
+        context["programs"] = programs
         return context
 
+class GraduateProgramIndexPage(Page):
+    intro = RichTextField(blank=True)
+
+    page_description = "A page that lists all programs, grouped by level, each linking to its source URL."
+
+    max_count = 1
+
+    content_panels = Page.content_panels + [
+        FieldPanel("intro"),
+    ]
+
+    def get_context(self, request):
+        from core.models import Program
+        context = super().get_context(request)
+        programs = Program.objects.filter(active=True).filter(Q(degree_conferred='MS') | Q(degree_conferred='4+1')).order_by("department", "degree_conferred")
+        context["programs"] = programs
+        return context
 
 class PersonIndexPage(RoutablePageMixin, Page):
     """
@@ -506,13 +522,10 @@ class DepartmentProgramsPage(Page):
         dept_abbrev = dept_info['abbreviation'] if dept_info else dept_slug
         programs = (Program.objects
             .filter(active=True, department=dept_abbrev)
-            .order_by('level', 'degree_conferred', 'name'))
-        context['undergrad'] = [p for p in programs if p.level == 'undergraduate']
-        context['graduate']  = [p for p in programs if p.level == 'graduate']
-        context['certs']     = [p for p in programs if p.level not in ('undergraduate', 'graduate')]
+            .order_by('degree_conferred', 'name'))
+        context['programs'] = programs
         context.update(get_dept_sidebar_context(self))
         return context
-
 
 class DepartmentStandardPage(Page):
     body = StreamField([
