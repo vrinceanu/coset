@@ -192,7 +192,7 @@ class GraduateProgramIndexPage(Page):
     def get_context(self, request):
         from core.models import Program
         context = super().get_context(request)
-        programs = Program.objects.filter(active=True).filter(Q(degree_conferred='MS') | Q(degree_conferred='4+1')).order_by("department", "degree_conferred")
+        programs = Program.objects.filter(active=True).filter(Q(degree_conferred='MS') | Q(degree_conferred='4+1') | Q(degree_conferred='PHD').order_by("department", "degree_conferred")
         context["programs"] = programs
         return context
 
