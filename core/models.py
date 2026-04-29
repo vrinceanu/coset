@@ -37,25 +37,14 @@ class UnitType(models.TextChoices):
     ACADEMIC       = 'academic',       'Academic'
     RESEARCH       = 'research',       'Research'
 
-
-class DegreeLevel(models.TextChoices):
-    UNDERGRADUATE = 'undergraduate', 'Undergraduate'
-    GRADUATE      = 'graduate',      'Graduate'
-    CERTIFICATE   = 'certificate',   'Certficate'
-
-
-class ProgramFocus(models.TextChoices):
-    MAJOR = 'major', 'Major'
-    MINOR = 'minor', 'Minor'
-
-
 class DegreeConferred(models.TextChoices):
     BS  = 'BS',  'Bachelor of Science'
-    BA  = 'BA',  'Bachelor of Arts'
     MS  = 'MS',  'Master of Science'
-    MA  = 'MA',  'Master of Arts'
-    PHD = 'PhD', 'Doctor of Philosophy'
-    OTHER = 'Other', 'Other'
+    PHD = 'PHD', 'Doctor of Philosophy'
+    MINOR = 'MINOR', 'Minor'
+    CERT  = 'CERT', 'Certificate'
+    ACC = '4+1', 'Accelerated 4+1 BS/MS'
+    OTHER = 'OTHER', 'Other'
 
 
 class RoomPurpose(models.TextChoices):
@@ -256,16 +245,11 @@ class Course(models.Model):
 class Program(models.Model):
     """Degree or certificate program."""
     degree_conferred    = models.CharField(max_length=10, choices=DegreeConferred.choices)
-    focus               = models.CharField(max_length=10, choices=ProgramFocus.choices,
-                                            default=ProgramFocus.MAJOR)
     name                = models.CharField(max_length=300)
     department          = models.CharField('Department', max_length=20, null=True, blank=True,
                                         choices=[(x['abbreviation'], x['name']) for x in departments],
                                         help_text='Primary department affiliation')
     active              = models.BooleanField(default=True, db_index=True)
-    level               = models.CharField('Graduate / Undergraduate', max_length=15,
-                                            choices=DegreeLevel.choices,
-                                            default=DegreeLevel.UNDERGRADUATE, db_index=True)
     description         = models.TextField(blank=True)
     admission_requirements = models.TextField(blank=True)
     credit_hours        = models.PositiveSmallIntegerField(default=120)
@@ -276,22 +260,11 @@ class Program(models.Model):
     degree_plan         = models.TextField(blank=True,
                                             help_text='Semester-by-semester degree plan narrative or link')
     source_url          = models.URLField(blank=True, help_text='orgin url in University website')
-    # Courses (M2M for structured relationship)
-    required_courses    = models.ManyToManyField(Course, blank=True,
-                                                  related_name='required_by_programs',
-                                                  verbose_name='Required Courses')
-    elective_courses    = models.ManyToManyField(Course, blank=True,
-                                                  related_name='elective_in_programs',
-                                                  verbose_name='Elective Courses')
 
     class Meta:
         ordering = ['name']
         verbose_name = 'Program'
         verbose_name_plural = 'Programs'
-
-    def __str__(self):
-        return f'{self.degree_conferred} – {self.name}'
-
 
 # ─────────────────────────────────────────────
 # Grant

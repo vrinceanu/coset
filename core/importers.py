@@ -295,6 +295,7 @@ def import_programs(data):
     focus choices: major, minor
     level choices: undergraduate, graduate
     """
+    BASE_URL = "https://catalog.tsu.edu"
     from .models import Program
     result = _result()
     if not isinstance(data, list):
@@ -303,14 +304,11 @@ def import_programs(data):
         try:
             obj, created = Program.objects.update_or_create(
                 name=item['name'],
-                degree_conferred=item.get('degree_conferred', 'BS'),
                 defaults={
-                    'focus': item.get('focus', 'major'),
                     'department': item.get('department', 'NA'),
                     'degree_conferred': item.get('degree_conferred', 'Other'),
-                    'source_url': item.get('source_url',''),
+                    'source_url': BASE_URL + item.get('url',''),
                     'active': item.get('active', True),
-                    'level': item.get('level', 'undergraduate'),
                     'description': item.get('description', ''),
                     'admission_requirements': item.get('admission_requirements', ''),
                     'credit_hours': item.get('credit_hours', 120),

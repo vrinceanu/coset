@@ -149,34 +149,17 @@ class CourseAdmin(admin.ModelAdmin):
 # ─────────────────────────────────────────────
 # Program
 # ─────────────────────────────────────────────
-
-class RequiredCoursesInline(admin.TabularInline):
-    model  = Program.required_courses.through
-    extra  = 1
-    verbose_name = 'Required Course'
-    verbose_name_plural = 'Required Courses'
-
-
-class ElectiveCoursesInline(admin.TabularInline):
-    model  = Program.elective_courses.through
-    extra  = 1
-    verbose_name = 'Elective Course'
-    verbose_name_plural = 'Elective Courses'
-
-
 @admin.register(Program)
 class ProgramAdmin(admin.ModelAdmin):
-    list_display  = ('name', 'degree_conferred', 'focus', 'level',
+    list_display  = ('name', 'degree_conferred',
                      'department', 'credit_hours', 'active')
-    list_filter   = ('active', 'level', 'degree_conferred', 'focus', 'department')
+    list_filter   = ('active', 'department')
     search_fields = ('name', 'description', 'department__name')
     list_editable = ('active',)
-#    autocomplete_fields = ('department',)
-    filter_horizontal = ('required_courses', 'elective_courses')
 
     fieldsets = (
         ('Program Identity', {
-            'fields': ('name', 'degree_conferred', 'focus', 'level',
+            'fields': ('name', 'degree_conferred',
                        'department', 'source_url','active')
         }),
         ('Description & Requirements', {
@@ -185,10 +168,6 @@ class ProgramAdmin(admin.ModelAdmin):
         ('Curriculum', {
             'fields': ('major_requirements', 'other_requirements',
                        'electives', 'degree_plan'),
-            'classes': ('collapse',),
-        }),
-        ('Linked Courses', {
-            'fields': ('required_courses', 'elective_courses'),
             'classes': ('collapse',),
         }),
     )

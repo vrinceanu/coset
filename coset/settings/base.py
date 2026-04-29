@@ -15,7 +15,7 @@ export DJANGO_SETTINGS_MODULE=coset.settings.dev
 
 or
 
-DJANGO_SETTINGS_MODULE=coset.settings.production
+export DJANGO_SETTINGS_MODULE=coset.settings.production
 
 """
 import os
