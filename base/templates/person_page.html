@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load wagtailimages_tags %}
+{% load wagtailmarkdown %}
 
 {% block content %}
+  <article class="prose mx-auto">
     <h1>{{ person.name }}</h1>
     
     {% if person.photo %}
@@ -11,13 +13,7 @@
     {% if person.rank %}
         <p><strong>Rank:</strong> {{ person.rank }}</p>
     {% endif %}
-    
-    {% if person.department %}
-        <p><strong>Department:</strong> {{ person.department.name }}</p>
-    {% endif %}
 
-    person.slug: {{ person.slug }}
-
-    <div>{{ person.biography | safe}}</div>
-
+    <div class="prose markdown-block">{{ person.biography | safe }}</div>
+   </article>
   {% endblock %}

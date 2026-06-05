@@ -66,7 +66,8 @@ class SectionPage(Page):
     """
 
     page_description = "A section header page that organizes content without having its own body text."
-    
+    subpage_types = ["StandardPage"]
+
     max_count = 4
     def serve(self, request, *args, **kwargs):
         return super().serve(request, *args, **kwargs)
@@ -77,6 +78,7 @@ class PostSectionPage(Page):
     subpage_types = ["PostPage"]
     def serve(self, request, *args, **kwargs):
         return super().serve(request, *args, **kwargs)
+
 
 class HomePageFeaturedPost(Orderable):
     page = ParentalKey('HomePage', related_name='featured_posts')

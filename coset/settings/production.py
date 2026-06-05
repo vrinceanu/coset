@@ -4,8 +4,8 @@ from .base import *
 DEBUG = False
 
 WAGTAILADMIN_BASE_URL = 'http://coset.tsu.edu'
-#ALLOWED_HOSTS = ['coset.tsu.edu', 'www.coset.tsu.edu']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['coset.tsu.edu', 'www.coset.tsu.edu','localhost']
+#ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
@@ -48,6 +48,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = ["https://coset.tsu.edu"]
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -57,4 +59,3 @@ EMAIL_HOST_USER = 'daniel.vrinceanu@gmail.com'
 EMAIL_HOST_PASSWORD = 'mwnh tybh nqip wloz'
 DEFAULT_FROM_EMAIL = 'Daniel Vrinceanu <daniel.vrinceanu@tsu.edu>'
 WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = DEFAULT_FROM_EMAIL
-

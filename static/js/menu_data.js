@@ -23,7 +23,7 @@ const menuData = {
             {
                 title: 'Community',
                 links: [
-                    { text: 'News & Announcements', href: '/news/' },
+                    { text: 'News & Announcements', href: '/news-events/' },
                     { text: 'Work with us', href: '/about/work-with-us/' },
                     { text: 'Reports & Newsletters', href: '/about/reports/' },
                     { text: 'Give to us!', href: '/about/give-to-us/' }
@@ -66,27 +66,27 @@ const menuData = {
             {
                 title: 'Programs',
                 links: [
-                    { text: 'Undergraduate', href: '/academics/undergraduate-index/' },
-                    { text: 'Graduate', href: '/academics/undergraduate-index/' },
-                    { text: 'Accredited Programs', href: '/academics/accreditation/' }
+                    { text: 'Undergraduate', href: '/programs/undergraduate-index/' },
+                    { text: 'Graduate', href: '/programs/graduate-index/' },
+                    { text: 'Accredited Programs', href: '/programs/accreditation/' }
                 ]
             },
             {
-                title: 'Departments',
+                title: 'Departments', href: '/departments/',
                 links: [
-                    { text: 'Biology', href: 'https://cost.tsu.edu/biology/' },
-                    { text: 'Chemistry', href: '/chemistry/' },
-                    { text: 'Mathematical Sciences', href: '/mathematics/' },
-                    { text: 'Physics', href: '/physics/' }
+                    { text: 'Biology', href: '/departments/biology/' },
+                    { text: 'Chemistry', href: '/departments/chemistry/' },
+                    { text: 'Mathematical Sciences', href: '/departments/mathematics/' },
+                    { text: 'Physics', href: '/departments/physics/' }
                 ]
             },
             {
-                title: '...',
+                title: '',
                 links: [
-                    { text: 'Aerospace & Mechanical Engineering', href: '/asme/' },
-                    { text: 'Chemical Engineering & Environmental Toxicology', href: '/ceet/' },
-                    { text: 'Civil Engineering & Transportation Studies', href: '/cets/' },
-                    { text: 'Electrical Engineering & Computer Science', href: '/eecs/' },
+                    { text: 'Aerospace & Mechanical Engineering', href: '/departments/asme/' },
+                    { text: 'Chemical Engineering & Environmental Toxicology', href: '/departments/ceet/' },
+                    { text: 'Civil Engineering & Transportation Studies', href: '/departments/cets/' },
+                    { text: 'Electrical Engineering & Computer Science', href: '/departments/eecs/' }
                 ]
             }
         ]
