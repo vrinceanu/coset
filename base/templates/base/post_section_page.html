@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<nav class="max-w-4xl mx-auto py-10">
+    <h1>{{ page.title }}</h1>
+
+    <ul class="w-64 space-y-2 border-r p-4">
+        {% for child in page.get_children.live.in_menu %}
+            <li class="block px-4 py-2 rounded-lg bg-blue-50 text-coset-gray3 font-semibold">
+                <a href="{% pageurl child %}">{{ child.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+<nav>  
+{% endblock %}
