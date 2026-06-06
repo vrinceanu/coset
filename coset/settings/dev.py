@@ -1,4 +1,4 @@
-from .base import *  
+from .base import *
 
 print("Using development settings")
 
@@ -20,3 +20,4 @@ DATABASES = {
     }
 }
 
+WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS = False

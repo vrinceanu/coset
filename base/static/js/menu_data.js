@@ -13,7 +13,7 @@ const menuData = {
                     },
                     {
                         text: "Administration",
-                        href: "/about/administration-index/",
+                        href: "/administration/",
                     },
                     { text: "People", href: "/people/" },
                 ],

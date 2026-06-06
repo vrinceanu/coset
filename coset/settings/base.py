@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 
-use env variable eithe:
+use env variable either:
 
-export DJANGO_SETTINGS_MODULE=coset.settings.dev 
+export DJANGO_SETTINGS_MODULE=coset.settings.dev
 
 or
 
@@ -116,12 +116,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 WAGTAIL_SITE_NAME = 'College of Science, Engineering and Technology'
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'pdf', 'pptx', 'txt', 'xlsx','jpg']
 
-WAGTAILMARKDOWN = { "extensions": ["toc", "attr_list"], "allowed_tags":["sub","sup"], 
+WAGTAILMARKDOWN = { "extensions": ["toc", "attr_list"], "allowed_tags":["sub","sup"],
                    "allowed_attributes":{ "th": ["colspan",]},
                    }
+
+print("base loaded")

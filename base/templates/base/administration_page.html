@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load person_tags %}
+{% load dictionary_extras %}
+
+{% block content %}
+<div class="max-w-300 p-20">
+  <h2 class="pb-10">Dean's Office</h2>
+   <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 place-content-center">
+       {% person_card 'mark-weatherspoon' %}
+       {% person_card 'shishir-shishodia' %}
+       {% person_card 'desiree-jackson' %}
+       {% person_card 'daniel-vrinceanu' %}
+       {% person_card 'helen-pittman-cockrell' %}
+       {% person_card 'dolly-spencer' %}
+   </div>
+   <h2 class="p-10">Office of Student Services and Instructional Support</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 place-content-center">
+         {% person_card 'desiree-jackson' %}
+         {% person_card 'tioka-freeman' %}
+    </div>
+
+{% for d in departments %}
+<h2 class="py-6"id={{d.slug}}>Department of {{d.name}}</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 place-content-center">
+    {% with this_chair=chair|get_item:d.slug %}
+        {% person_card this_chair %}
+    {% endwith %}
+    {% with this_admin=admin|get_item:d.slug %}
+        {% person_card this_admin %}
+    {% endwith %}
+</div>
+{% endfor %}
+</div>
+{% endblock %}
