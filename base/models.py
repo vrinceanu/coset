@@ -1,6 +1,5 @@
 import os, csv
 from django.db import models
-from urllib3 import request
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel, PageChooserPanel
@@ -258,6 +257,26 @@ class GraduateProgramIndexPage(Page):
         context["programs"] = programs
         return context
 
+class AdministrationPage(Page):
+    """
+    page listing administrative structure of the college
+    """
+    page_description = ("A page listing administrative personnel")
+
+    max_count = 1
+
+    def get_context(self, request):
+        context = super().get_context(request)
+
+        context["departments"] = departments[:-1]
+        units = Unit.objects.all().values("slug", "principal__slug", "interim", "admin__slug")
+        chair = {u["slug"]: u["principal__slug"] for u in units}
+        context["chair"] = chair
+        admin = {u["slug"]: u["admin__slug"] for u in units}
+        context["admin"] = admin
+        interim = {u["slug"]: u["interim"] for u in units}
+        context["interim"] = interim
+        return context
 
 class PersonIndexPage(RoutablePageMixin, Page):
     """
