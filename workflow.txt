@@ -26,8 +26,9 @@ Now, tell your production server to grab the updated main branch.
 git checkout main
 git pull origin main
 source ../env/bin/activate
-python manage.py migrate
-python manage.py collectstatic --noinput
+export DJANGO_SETTINGS_MODULE=coset.settings.production
+manage.py migrate
+manage.py collectstatic --noinput
 sudo systemctl restart gunicorn
 
 

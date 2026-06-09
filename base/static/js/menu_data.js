@@ -100,10 +100,9 @@ const menuData = {
                 title: "Programs",
                 links: [
                     {
-                        text: "Undergraduate",
-                        href: "/academics/undergraduate-index/",
+                        text: "Undergraduate", href: "/programs/undergraduate-index/",
                     },
-                    { text: "Graduate", href: "/academics/graduate-index/" },
+                    { text: "Graduate", href: "/programs/graduate-index/" },
                     {
                         text: "Accredited Programs",
                         href: "/programs/accreditation/",
@@ -114,34 +113,19 @@ const menuData = {
                 title: "Departments",
                 href: "/departments/",
                 links: [
-                    { text: "Biology", href: "/departments/biology/" },
-                    { text: "Chemistry", href: "/departments/chemistry/" },
-                    {
-                        text: "Mathematical Sciences",
-                        href: "/departments/mathematics/",
-                    },
-                    { text: "Physics", href: "/departments/physics/" },
+                    { text: "Biology", href: "/departments/biology/",},
+                    { text: "Chemistry", href: "/departments/chemistry/",},
+                    { text: "Mathematical Sciences",href: "/departments/mathematics/",},
+                    { text: "Physics", href: "/departments/physics/",},
                 ],
             },
             {
                 title: "",
                 links: [
-                    {
-                        text: "Aerospace & Mechanical Engineering",
-                        href: "/departments/asme/",
-                    },
-                    {
-                        text: "Chemical Engineering & Environmental Toxicology",
-                        href: "/departments/ceet/",
-                    },
-                    {
-                        text: "Civil Engineering & Transportation Studies",
-                        href: "/departments/cets/",
-                    },
-                    {
-                        text: "Electrical Engineering & Computer Science",
-                        href: "/departments/eecs/",
-                    },
+                    {text: "Aerospace & Mechanical Engineering",href: "/departments/ame/"},
+                    {text: "Chemical Engineering & Environmental Toxicology",href: "/departments/cheet/",},
+                    {text: "Civil Engineering & Transportation Studies",href: "/departments/cets/",},
+                    {text: "Electrical Engineering & Computer Science",href: "/departments/eecs/",},
                 ],
             },
         ],
