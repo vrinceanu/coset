@@ -1014,6 +1014,9 @@
   .w-\[24em\] {
     width: 24em;
   }
+  .w-\[28em\] {
+    width: 28em;
+  }
   .w-auto {
     width: auto;
   }
@@ -1037,6 +1040,9 @@
   }
   .max-w-7xl {
     max-width: var(--container-7xl);
+  }
+  .max-w-24 {
+    max-width: calc(var(--spacing) * 24);
   }
   .max-w-300 {
     max-width: calc(var(--spacing) * 300);
@@ -2124,6 +2130,21 @@
   .sm\:grid-cols-2 {
     @media (width >= 40rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .sm\:p-4 {
+    @media (width >= 40rem) {
+      padding: calc(var(--spacing) * 4);
+    }
+  }
+  .sm\:p-6 {
+    @media (width >= 40rem) {
+      padding: calc(var(--spacing) * 6);
+    }
+  }
+  .sm\:p-8 {
+    @media (width >= 40rem) {
+      padding: calc(var(--spacing) * 8);
     }
   }
   .md\:col-span-2 {
