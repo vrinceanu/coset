@@ -25,7 +25,7 @@ Now, tell your production server to grab the updated main branch.
 
 git checkout main
 git pull origin main
-source venv/bin/activate
+source ../env/bin/activate
 python manage.py migrate
 python manage.py collectstatic --noinput
 sudo systemctl restart gunicorn
